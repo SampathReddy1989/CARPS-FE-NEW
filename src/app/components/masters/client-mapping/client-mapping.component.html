@@ -1,0 +1,205 @@
+<div class="row font-weight-normal bgcolor w-100" style="margin-top: 111px">
+  <div style="margin-left: 20px">
+    <h5 class="text-dark">Client Mapping Actions</h5>
+    <!-- Material Card for File Upload -->
+    <mat-card class="tblcolwidth-lg">
+      <mat-card-header>
+        <mat-card-title>Upload File with Alias Name</mat-card-title>
+        <mat-card-subtitle
+          >Choose a suitable excel document for client configuration mapping
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="ml-3">
+          <app-file-upload
+            (complete)="onFileComplete($event)"
+            [target]="uploadFileUrlPath"
+            (fileload)="onFileLoad($event)"
+          >
+          </app-file-upload>
+        </div>
+      </mat-card-content>
+
+      <mat-card-header *ngIf="isFileInfoShow()">
+        <mat-card-subtitle class="file-info file-info-success"
+          >File : {{ uiFileInfo.fileName }}<br />
+          Uploaded at : {{ uiFileInfo.infoTime }}
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <hr *ngIf="isFileInfoShow()" />
+      <mat-card-header *ngIf="isFileInfoShow()">
+        <mat-card-title>Recent Upload File History</mat-card-title>
+        <mat-chip-list>
+          <mat-chip
+            class="file-info"
+            (click)="clearFiles()"
+            style="cursor: pointer"
+          >
+            Clear History
+            <mat-icon>delete_forever</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </mat-card-header>
+      <mat-card-content *ngIf="isFileInfoShow()">
+        <ul>
+          <li *ngFor="let finfo of filesInfo.reverse()">
+            File: {{ finfo.fileName }} <br />
+            <span class="file-info">{{ finfo.infoTime }}</span>
+          </li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="col-md">
+    <h5 class="text-dark">Client Configurations</h5>
+    <!-- <button mat-raised-button (click)="addNewConfig($event)" class="mat-elevation-z2" [disabled]="!isAdd">Add
+            New</button> -->
+
+    <!-- <mat-paginator class="tblcolswidth" [length]="50" [pageSize]="50" [pageSizeOptions]="[50]"
+            showFirstLastButtons>
+        </mat-paginator> -->
+    <!-- Material Client Mapping Table -->
+    <mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z1 tblcolswidth mt-4"
+    >
+      <!-- aliasName Column -->
+      <ng-container matColumnDef="aliasName" sticky>
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth-md">
+          Alias Name
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth-md">
+          {{ element.aliasName }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- dBFieldName Column -->
+      <ng-container matColumnDef="dBFieldName" sticky>
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth-md">
+          DB Field Name
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth-md">
+          <mat-select
+            [ngModel]="element.ordinalPosition"
+            [style.display]="element.uiFlag ? 'block' : 'none'"
+            (selectionChange)="onChange($event, element)"
+          >
+            <mat-optgroup>
+              <mat-option
+                *ngFor="let item of clientMappingDropdown"
+                [value]="item.ordinalPosition"
+                [disabled]="doDisableOption(item.ordinalPosition)"
+              >
+                {{ item.dBFieldName }}
+              </mat-option>
+            </mat-optgroup>
+          </mat-select>
+          <span [style.display]="!element.uiFlag ? 'block' : 'none'">
+            {{ element.dBFieldName }}</span
+          >
+        </mat-cell>
+      </ng-container>
+
+      <!-- ordinalPosition Column -->
+      <ng-container matColumnDef="ordinalPosition" sticky>
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth-sm">
+          Ordinal Position
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth-sm">
+          {{ element.ordinalPosition }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- mandatoryField Column -->
+      <ng-container matColumnDef="mandatoryField" sticky>
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth-sm">
+          Mandatory Field
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth-sm">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            [(ngModel)]="element.uiMandatory"
+            [disabled]="!element.uiFlag"
+          >
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <!-- duplicateField Column -->
+      <ng-container matColumnDef="duplicateField" sticky>
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth-sm">
+          Duplicate Field
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth-sm">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            [(ngModel)]="element.uiDuplicate"
+            [disabled]="!element.uiFlag"
+          >
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <!-- filterField Column -->
+      <ng-container matColumnDef="filterField" sticky>
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth-sm">
+          Filter Field
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth-sm">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            [(ngModel)]="element.uiFilter"
+            [disabled]="!element.uiFlag"
+          >
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <!-- sortField Column -->
+      <ng-container matColumnDef="sortField" sticky>
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth-sm">
+          Sort Field
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth-sm">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            [(ngModel)]="element.uiSort"
+            [disabled]="!element.uiFlag"
+          >
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row
+        *matHeaderRowDef="displayedColumns; sticky: true"
+        class="th-light"
+      ></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    </mat-table>
+
+    <br />
+    <button
+      mat-raised-button
+      (click)="addNewConfig($event)"
+      class="mat-elevation-z2"
+      [disabled]="!isAdd"
+    >
+      Add New
+    </button>
+    <button
+      mat-raised-button
+      class="mat-elevation-z2 mapsubmit buttoncolour"
+      [disabled]="!issubmit"
+      (click)="saveConfiguration()"
+    >
+      <mat-icon>send</mat-icon> Submit
+    </button>
+    <br />
+  </div>
+</div>
+<!-- footer -->
+<footer class="content1">
+  &copy; <b>eSpyCons 2020 | All Rights Reserved</b>
+</footer>

@@ -1,0 +1,75 @@
+<!-- header -->
+<mat-toolbar class="glo fixed-top" role="banner">
+  <img width="100" style="margin-top: 10px" src="./assets/logo1.PNG" />
+
+  <!-- <img width="75" alt="eSpyCons Logo" style="margin-top: 10px;"
+    src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/Pgo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDIwMDEwOTA0Ly9FTiIKICJodHRwOi8vd3d3LnczLm9yZy9UUi8yMDAxL1JFQy1TVkctMjAwMTA5MDQvRFREL3N2ZzEwLmR0ZCI+CjxzdmcgdmVyc2lvbj0iMS4wIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciCiB3aWR0aD0iMTUyLjAwMDAwMHB0IiBoZWlnaHQ9IjE1Mi4wMDAwMDBwdCIgdmlld0JveD0iMCAwIDE1Mi4wMDAwMDAgMTUyLjAwMDAwMCIKIHByZXNlcnZlQXNwZWN0UmF0aW89InhNaWRZTWlkIG1lZXQiPgo8bWV0YWRhdGE+CkNyZWF0ZWQgYnkgU3VyYWoKPC9tZXRhZGF0YT4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMC4wMDAwMDAsMTUyLjAwMDAwMCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSIKc3Ryb2tlPSJub25lIj4KPHBhdGggZmlsbD0iI2Y0NDMzNiIgIGQ9Ik0zMjUgMTQxMCBjLTMgLTUgLTEzIC0xMCAtMjIgLTEwIC04IDAgLTI3IC05IC00MyAtMjAgLTE1IC0xMSAtMzAKLTE3IC0zNCAtMTUgLTMgMyAtNCAzIC0yIDAgMiAtMyAtMTIgLTIyIC0zMCAtNDIgLTE4IC0yMCAtMzEgLTM5IC0yOSAtNDMgMgotMyAtMiAtMTggLTkgLTMyIC04IC0xNSAtMTQgLTY2IC0xNSAtMTI3IGwtMiAtMTAxIDU2IDAgNTUgMCAwIDExMyBjMCAxMjYgNQoxMzkgNjcgMTcxIDI5IDE0IDc0IDE2IDM2OCAxNiBsMzM1IC0xIDMwIC0yNSBjMTYgLTE0IDMwIC0zMSAzMCAtMzggMCAtMTMgODgKLTY2IDEwOSAtNjYgMTYgMCAxNCAyNSAtNiA2OCAtOSAyMCAtMTUgNDAgLTE1IDQ1IDEgNCAtMyA3IC05IDcgLTUgMCAtOCAzIC02CjggMiA0IC00IDE1IC0xNSAyNSAtMTAgOSAtMTggMTQgLTE4IDEwIDAgLTMgLTkgNCAtMjAgMTcgLTExIDEzIC0yMCAyMSAtMjAKMTcgMCAtMyAtMTcgMyAtMzcgMTMgLTM1IDE3IC02OSAxOSAtMzc1IDIwIC0yMjAgMCAtMzM5IC0zIC0zNDMgLTEweiIvPgo8cGF0aCBmaWxsPSIjM2Q1ZmNjIiAgZD0iTTg0OSAxMTc0IGMtODAgLTI0IC0xNjQgLTExOSAtMTkzIC0yMTYgLTUgLTE3IC0yNyAtMTggLTI4MCAtMTgKLTIzNiAwIC0yNzcgLTIgLTI5MCAtMTYgLTMwIC0zMCAtMTYgLTY3IDI5IC03NiAxOSAtMyAyMCAtMTMgMjUgLTE1OCA1IC0xMzQKOSAtMTYxIDI3IC0xOTYgMzAgLTU2IDk0IC0xMDkgMTQ4IC0xMjMgNzEgLTE4IDY1OSAtMTUgNzIxIDQgODcgMjYgMTYzIDEyMgoxNjQgMjA4IGwwIDM5IC0yOSAtMjQgYy0xNSAtMTQgLTQyIC0zMCAtNTkgLTM3IC0xNyAtNyAtMzQgLTIyIC0zOCAtMzMgLTMKLTExIC0yMCAtMjggLTM3IC0zOSAtMzAgLTE4IC01NCAtMTkgLTM2NSAtMTkgLTI5MSAwIC0zMzcgMiAtMzYyIDE2IC01MiAzMgotNjAgNTggLTYwIDIxNCBsMCAxNDEgNTMgLTMgNTIgLTMgNSAtMTIzIGM0IC05NCA4IC0xMjUgMjAgLTEzMiAyMyAtMTUgNDUKLTEyIDYzIDggMTQgMTUgMTcgNDEgMTcgMTM2IGwwIDExNyA5NiAtMyA5NiAtMyAxOSAtNTEgYzI2IC02OSA3NiAtMTI0IDE0NQotMTU5IDQ5IC0yNSA3MSAtMzAgMTI5IC0yOSA5NCAwIDE0NSAxNyAxOTcgNjQgOTUgODQgMTI5IDIwNyA5MiAzMjYgLTI0IDc3Ci0xMDUgMTYyIC0xNzggMTg3IC01OSAyMCAtMTQ0IDIxIC0yMDcgMXogbTIwNSAtMTE5IGM0NiAtMzIgNTYgLTQ0IDc2IC04NiA0NgotMTAyIDggLTIwNCAtOTAgLTI0NiAtNTQgLTIzIC0xNDEgLTMzIC0xNDcgLTE3IC0zIDggLTkgMTEgLTE0IDggLTUgLTMgLTkgMAotOSA1IDAgNiAtNCAxMSAtMTAgMTEgLTEzIDAgLTY0IDUzIC02OCA3MSAtMiA4IC0xMCAyMCAtMTkgMjcgLTkgNiAtMTIgMTIgLTcKMTIgMTAgMCAxMCA5IDQgNjAgLTEgOCAtNiA0IC0xMCAtMTAgLTE1IC00NiAtMTAgNiA1IDU3IDI5IDk5IDExNyAxNTAgMjI0CjEzMSAyNSAtNCA1NCAtMTUgNjUgLTIzeiIvPgo8L2c+Cjwvc3ZnPgo=" />
+
+  <span>eSpyCons</span> -->
+  <div class="spacer"></div>
+
+  <div class="row font-weight-light">
+    <div class="col-md">
+      <span class="ccolor">
+        <b> Client: {{ currentClient }}</b></span
+      >
+    </div>
+    <div class="col-md">
+      <nav
+        mat-card-avatar
+        class="navbar mat-elevation-z2 avatar-header-image"
+        id="navbarDropdownMenuLink"
+        role="button"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <div
+          class="dropdown-menu mat-elevation-z4"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <a class="dropdown-item drop-item-user">
+            <mat-card-header>
+              <div mat-card-avatar class="avatar-header-image"></div>
+              <mat-card-title>Welcome, {{ currentUser }}</mat-card-title>
+              <mat-card-subtitle>Admin</mat-card-subtitle>
+            </mat-card-header>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item">
+            <button mat-button color="primary">
+              <mat-icon>bookmark</mat-icon>Target : ?
+            </button>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item">
+            <button mat-button color="primary">
+              <mat-icon>assignment</mat-icon> Complete : ?
+            </button>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" (click)="logout()">
+            <button mat-button color="warn">
+              <mat-icon>arrow_forward</mat-icon> Logout
+            </button>
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+  <div class="glostick sticky-top1"></div>
+</mat-toolbar>
+
+<!-- Navigation -->
+<app-nav-bar></app-nav-bar>
+<!-- Main Content -->
+<!-- <div class="content" role="main"> -->
+<app-alerts></app-alerts>
+<router-outlet></router-outlet>
+<!-- </div> -->
+
+<br />
+<!-- Footer -->
+<!-- <footer class="content1">
+  &copy; <b>eSpyCons 2020 | All Rights Reserved</b>
+</footer> -->

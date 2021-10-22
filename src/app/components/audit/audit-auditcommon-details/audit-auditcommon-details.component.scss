@@ -1,0 +1,41 @@
+// @import "../../masters/client-mapping/client-mapping.component.scss";
+// @import"../../workalloc/inbox-transaction/inbox-transaction.component.scss";
+@import "../../../app.component.scss";
+
+// th.mat-header-cell {
+//     padding:0 3px !important;
+//     border-bottom-width: 1px;
+//     border-bottom-style: solid;
+// }
+td.mat-cell {
+  padding: 0 5px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+}
+.inswidth {
+  overflow-y: auto;
+}
+.th-light {
+  font-weight: 700px;
+  background-color: #0736e1;
+  color: black;
+  font-size: 14px;
+}
+table {
+  overflow-y: auto;
+  max-height: 400px;
+  width: 100%;
+}
+.spaceheader {
+  min-width: 120px;
+  // width: 200px;
+  // max-width: 200px;
+}
+
+.leftsiderow {
+  padding-left: 25px;
+}
+.mat-header-cell {
+  color: white;
+  font-size: 14px;
+}

@@ -1,0 +1,161 @@
+<div class="row p-2 text-attr w-100">
+  <div class="col-md">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>Account Details</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-paginator
+          name="AI-Paginator"
+          [length]="noOfRows"
+          [pageSize]="7"
+          [pageSizeOptions]="[7, 10, 50, 100]"
+          showFirstLastButtons
+          (page)="handlePage($event)">
+        </mat-paginator>
+        <div class="inswidth">
+          <table mat-table [dataSource]="dataSource" multiTemplateDataRows>
+            <!-- EXPAND/COLLAPSE  -->
+            <!-- <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>actions</th>
+            <td mat-cell *matCellDef="let element">
+              <a
+                mat-button
+                href="javascript:void()"
+                (click)="element.isExpanded = !element.isExpanded"
+                >EXPAND</a
+              >
+            </td>
+          </ng-container> -->
+            <!-- EXPAND/COLLAPSE  -->
+
+            <!-- Special extra column -->
+            <!-- <ng-container matColumnDef="Expand">
+            <th mat-header-cell *matHeaderCellDef>Expand / Collapse</th>
+            <td mat-cell *matCellDef="let row">Expand</td>
+          </ng-container> -->
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Action</th>
+              <td mat-cell *matCellDef="let row; let i = dataIndex">
+                <button
+                  *ngIf="!row.isExpanded"
+                  mat-flat-button
+                  (click)="onAccountSelection(row, i)"
+                  class="expandButton buttoncolour"
+                >
+                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                </button>
+                <button
+                  *ngIf="row.isExpanded"
+                  mat-flat-button
+                  color="warn"
+                  (click)="onAccountSelection(row, i)"
+                  class="expandButton"
+                >
+                  <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                </button>
+              </td>
+            </ng-container>
+
+            <!-- Dynamic Columns: START -->
+            <ng-container
+              *ngFor="let column of columns"
+              [matColumnDef]="column.columnDef"
+            >
+              <!-- <mat-header-cell *matHeaderCellDef>{{
+              column.header
+            }}</mat-header-cell>
+            <mat-cell *matCellDef="let row">{{ column.cell(row) }}</mat-cell> -->
+
+              <ng-container *matHeaderCellDef>
+                <th
+                  mat-header-cell
+                  *ngIf="
+                    column.header != 'isExpanded' &&
+                    column.header != 'Scenario' &&
+                    column.header != 'StatusCode' &&
+                    column.header != 'ActionCode' &&
+                    column.header != 'Responsibility' &&
+                    column.header != 'fupdate' &&
+                    column.header != 'AgentNotes' &&
+                    column.header != 'tsflag'
+                  "
+                  class="spaceheader"
+                >
+                  {{ column.header }}
+                </th>
+              </ng-container>
+              <ng-container *matCellDef="let row">
+                <td
+                  mat-cell
+                  *ngIf="
+                    column.header != 'isExpanded' &&
+                    column.header != 'Scenario' &&
+                    column.header != 'StatusCode' &&
+                    column.header != 'ActionCode' &&
+                    column.header != 'Responsibility' &&
+                    column.header != 'fupdate' &&
+                    column.header != 'AgentNotes' &&
+                    column.header != 'tsflag'
+                  "
+                >
+                  {{ column.cell(row) }}
+                </td>
+              </ng-container>
+            </ng-container>
+            <!-- Dynamic Columns: END -->
+
+            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+            <ng-container matColumnDef="expandedDetail">
+              <td
+                mat-cell
+                *matCellDef="let element"
+                [attr.colspan]="displayedColumns.length"
+                id="element.Rowid"
+              >
+                <div
+                  class="row account-element-detail restrictWidth"
+                  [@detailExpand]="
+                    element.isExpanded ? 'expanded' : 'collapsed'
+                  "
+                >
+                  <app-transaction-form
+                    [rowData]="element"
+                    [selectedAccountDetails]="selectedAccountDetails"
+                    [tempSavedData]="tempSavedData"
+                    [defaultScenario]="defaultScenario"
+                    (reloadRequest)="onReloadRequest($event)"
+                    class="restrictWidth"
+                  ></app-transaction-form>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr
+              mat-header-row
+              *matHeaderRowDef="displayedColumns; sticky: true"
+              class="th-light"
+            ></tr>
+            <tr
+              mat-row
+              *matRowDef="let element; columns: displayedColumns"
+              class="account-element-row"
+              [class.account-expanded-row]="expandedElement === element"
+              [class.make-green]="element.tsflag == 1"
+              href="javascript:void()"
+            ></tr>
+
+            <!-- START: Extra Row to show transaction details -->
+            <tr
+              mat-row
+              *matRowDef="let row; columns: ['expandedDetail']"
+              class="account-detail-row"
+            ></tr>
+            <!-- END: Extra Row to show transaction details -->
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

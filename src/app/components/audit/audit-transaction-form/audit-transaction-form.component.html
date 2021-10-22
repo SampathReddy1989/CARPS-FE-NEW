@@ -1,0 +1,247 @@
+<div id="transaction-fields-container">
+  <div class="transaction-fields">
+    <ng-container *ngFor="let item of rowData | keyvalue">
+      <label
+        *ngIf="
+          item.key != 'isExpanded' &&
+          item.key != 'Scenario' &&
+          item.key != 'Statuscode' &&
+          item.key != 'ActionCode' &&
+          item.key != 'Responsibility' &&
+          item.key != 'FupDate' &&
+          item.key != 'AgentNotes' &&
+          item.key != 'tsflag' &&
+          item.key != 'Rowid'
+        "
+        class="col-md-3"
+        >{{ item.key }} :
+        <label>{{ item.value }}</label>
+      </label>
+    </ng-container>
+  </div>
+</div>
+<div id="row2">
+  <div class="transaction-menu">
+    <div class="scenario">
+      <form>
+        <h6>Scenario:</h6>
+        <mat-form-field appearance="fill">
+          <mat-label>Scenario</mat-label>
+          <mat-select
+            [(ngModel)]="rowData.Scenario"
+            (ngModelChange)="onScenarioChange($event)"
+            name="scenario"
+            [value]="rowData.Scenario"
+            [disabled]="isDisabled"
+          >
+            <mat-option
+              *ngFor="let scenario of scenarios"
+              [value]="scenario.scenarioName"
+            >
+              {{ scenario.scenarioName }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="status-code">
+      <form>
+        <h6>Status Code:</h6>
+        <mat-form-field appearance="fill">
+          <mat-label>Status Code</mat-label>
+          <mat-select
+            [(ngModel)]="rowData.Statuscode"
+            name="statusCode"
+            (ngModelChange)="onStatusCodeChange($event)"
+            [value]="rowData.Statuscode"
+            [disabled]="isDisabled"
+          >
+            <mat-option
+              *ngFor="let statusCode of statusCodes"
+              [value]="statusCode.statusCode"
+            >
+              {{ statusCode.statusCode }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="action-code">
+      <form>
+        <h6>Action Code:</h6>
+        <mat-form-field appearance="fill">
+          <mat-label>Action Code</mat-label>
+          <mat-select
+            [(ngModel)]="rowData.ActionCode"
+            (ngModelChange)="onActionCodeChange($event)"
+            name="actionCodes"
+            [(value)]="rowData.ActionCode"
+            [disabled]="isDisabled"
+          >
+            <mat-option
+              *ngFor="let actionCode of actionCodes"
+              [value]="actionCode.actioncode"
+            >
+              {{ actionCode.actioncode }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="responsibility">
+      <form>
+        <h6>Responsibility:</h6>
+        <mat-form-field appearance="fill">
+          <mat-label>Responsibility</mat-label>
+          <mat-select
+            [(ngModel)]="rowData.Responsibility"
+            (ngModelChange)="onResponsibilityChange($event)"
+            name="responsibility"
+            [(value)]="rowData.Responsibility"
+            [disabled]="isDisabled"
+          >
+            <mat-option *ngFor="let item of responsibility" [value]="item">
+              {{ item }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="callback-date">
+      <form>
+        <h6>Callback Date:</h6>
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>Choose a date</mat-label>
+          <input
+            name="callback-date"
+            matInput
+            [(ngModel)]="rowData.FupDate"
+            [matDatepicker]="picker"
+            (ngModelChange)="onCallbackDateSelection($event)"
+            [(value)]="rowData.FupDate"
+            [disabled]="callbackApplicable"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </form>
+    </div>
+  </div>
+  <div class="agentNote">
+    <h6>Agent Notes:</h6>
+    <div>
+      <textarea
+        rows="4"
+        cols="130"
+        name="comment"
+        form="usrform"
+        [(ngModel)]="rowData.AgentNotes"
+        (ngModelChange)="onAgentNotesChange($event)"
+        [(value)]="rowData.AgentNotes"
+        [readonly]="isDisabled"
+      >
+      </textarea>
+    </div>
+  </div>
+  <div class="save-buttons-container">
+    <div class="save-buttons">
+      <button
+        *ngIf="!onEdit"
+        mat-raised-button
+        color="warn"
+        (click)="onEditSelection(rowData)"
+      >
+        Edit
+      </button>
+      <button
+        *ngIf="onEdit"
+        mat-raised-button
+        color="warn"
+        (click)="onUpdate(rowData)"
+      >
+        Update
+      </button>
+      <button mat-raised-button color="warn" (click)="onAddError(rowData)">
+        Add Error
+      </button>
+      <button
+        mat-raised-button
+        class="buttoncolour"
+        (click)="onSaveAudit(rowData)"
+      >
+        Save Audit
+      </button>
+    </div>
+  </div>
+</div>
+<div id="row3-container" *ngIf="addError">
+  <div id="row3">
+    <div class="category">
+      <form>
+        <h6>Category:</h6>
+        <mat-form-field appearance="fill">
+          <mat-label>Category</mat-label>
+          <mat-select
+            [(ngModel)]="selectedCategory"
+            (ngModelChange)="onCategoryChange($event)"
+            name="scenario"
+            [value]="selectedCategory"
+          >
+            <mat-option *ngFor="let item of categories" [value]="item.category">
+              {{ item.category }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="subcategory">
+      <form>
+        <h6>SubCategory:</h6>
+        <mat-form-field appearance="fill">
+          <mat-label>SubCategory</mat-label>
+          <mat-select
+            [(ngModel)]="selectedSubcategory"
+            (ngModelChange)="onSubcategoryChange($event)"
+            name="SubCategory"
+            [value]="selectedSubcategory"
+          >
+            <mat-option
+              *ngFor="let item of subcategories"
+              [value]="item.subCategory"
+            >
+              {{ item.subCategory }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </form>
+    </div>
+    <div class="auditNote">
+      <h6>Remarks:</h6>
+      <div>
+        <textarea
+          rows="4"
+          cols="70"
+          name="comment"
+          form="usrform"
+          [(ngModel)]="remarks"
+          (ngModelChange)="onRemarksChange($event)"
+        >
+        </textarea>
+      </div>
+    </div>
+    <div class="audit-save-button-container">
+      <div id="audit-save-button">
+        <button
+          mat-raised-button
+          class="buttoncolour"
+          (click)="onSaveError(rowData)"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

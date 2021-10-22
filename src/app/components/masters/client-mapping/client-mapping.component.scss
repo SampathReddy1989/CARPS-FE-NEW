@@ -1,0 +1,138 @@
+@import "../../../app.component.scss";
+
+$tblcolsm: 130px; // 5 col
+$tblcolsm1: 92px; // 5 col
+$tblcolmd: 200px; // 2 col
+$tblcolmd1: 139px;
+$tblcolmd2: 143px; // 2 col
+$tblcolxmd: 300px;
+$tblcollg: 350px;
+$tblcolxl: 500px;
+$tblcolxl1: 600px;
+$tblcoltot: 900px;
+$tblcoltot1: 946px;
+
+.th-light {
+  font-weight: 700px;
+  background-color: #0736e1;
+  color: white;
+  font-size: 14px;
+}
+.iconcolor {
+  color: #0736e1;
+}
+
+// .mat-table-sticky {
+//     padding-left: 20px;
+// }
+.mat-table-sticky1 {
+  padding-left: 18px;
+}
+.mat-table {
+  overflow: auto;
+  max-height: 400px;
+  width: 100%;
+}
+.tblcolswidth {
+  min-width: $tblcoltot1;
+  width: $tblcoltot;
+  max-width: $tblcoltot;
+  margin-top: 10px;
+}
+
+.tblcolwidth-sm {
+  min-width: $tblcolsm;
+  width: $tblcolsm;
+  max-width: $tblcolsm;
+}
+.tblcolwidth1-sm {
+  min-width: $tblcolsm1;
+  width: $tblcolsm1;
+  max-width: $tblcolsm1;
+}
+
+.tblcolwidth-md {
+  min-width: $tblcolmd1;
+  width: $tblcolmd;
+  max-width: $tblcolmd;
+}
+.tblcolwidth1-md {
+  min-width: $tblcolmd2;
+  width: $tblcolmd2;
+  max-width: $tblcolmd2;
+}
+
+.tblcolwidth-xmd {
+  min-width: $tblcolxmd;
+  width: $tblcolxmd;
+  max-width: $tblcolxmd;
+}
+
+.tblcolwidth-lg {
+  min-width: $tblcollg;
+  width: $tblcollg;
+  max-width: $tblcollg;
+}
+
+.tblcolwidth1-xl {
+  min-width: $tblcolxl1;
+  width: $tblcolxl1;
+  max-width: $tblcolxl1;
+}
+
+::ng-deep.mat-card-title {
+  font-size: 15px;
+  font-weight: normal;
+}
+
+.file-info {
+  font-size: x-small;
+  font-weight: 400;
+}
+
+.file-info-success {
+  color: $accent-color-green;
+}
+.mapsubmit {
+  margin-left: 600px;
+}
+
+.buttoncolour {
+  background-color: #0736e1;
+  color: white;
+  border: 1px solid black;
+}
+.spaceheader {
+  min-width: 120px;
+  // width: 200px;
+  // max-width: 200px;
+}
+.bgcolor {
+  background-color: #e9e9ef;
+}
+footer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: 5px;
+  bottom: 0px;
+  line-height: 18px;
+}
+
+footer a {
+  display: flex;
+  align-items: center;
+}
+.content1 {
+  flex-direction: column;
+  align-items: center;
+  background-color: #0736e1;
+  color: white;
+}
+.mat-row:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.mat-row:nth-child(odd) {
+  background-color: inherit;
+}

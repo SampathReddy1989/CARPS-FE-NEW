@@ -1,0 +1,48 @@
+@import "../../masters/client-mapping/client-mapping.component.scss";
+
+$tblcoltot: 950px; // 7sm 1md
+$tblcollg: 450px;
+
+.tblcolswidth {
+  min-width: $tblcoltot;
+  width: $tblcoltot;
+  max-width: $tblcoltot;
+}
+// .bgcolor {
+//   background-color: #e9e9ef;
+// }
+body {
+  background-color: #e9e9ef !important;
+}
+.tblcolwidth-lg {
+  min-width: $tblcollg;
+  width: $tblcollg;
+  max-width: $tblcollg;
+}
+
+.pecentValid {
+  position: relative;
+  top: 120px;
+  right: 180px;
+}
+footer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: 133px;
+  bottom: 0px;
+  line-height: 18px;
+
+  // background-color: #e9e9ef !important;
+}
+
+footer a {
+  display: flex;
+  align-items: center;
+}
+.content1 {
+  flex-direction: column;
+  align-items: center;
+  background-color: #0736e1;
+  color: white;
+}

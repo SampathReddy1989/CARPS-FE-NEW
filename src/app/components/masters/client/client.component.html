@@ -1,0 +1,240 @@
+<div class="row font-weight-normal w-100" style="margin-top: 125px">
+  <div style="margin-left: 20px">
+    <h5>Add Client</h5>
+    <form [formGroup]="formGroup" (ngSubmit)="onAdd()">
+      <!-- Material Card using Form -->
+      <mat-card class="tblcolwidth-lg">
+        <mat-card-header>
+          <mat-card-subtitle
+            >New Client Details can be Added Here
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            <mat-form-field
+              class="tblcolwidth-md"
+              hintLabel="Max 25 characters"
+              appearance="fill"
+            >
+              <mat-label>Client Name</mat-label>
+              <input
+                matInput
+                #input
+                maxlength="25"
+                placeholder="Ex. espycons"
+                [formControl]="cNameControl"
+                required
+              />
+              <mat-hint align="end">{{ input.value?.length || 0 }}/25</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="tblcolwidth-md" appearance="fill">
+              <mat-label>Select TimeZone</mat-label>
+              <mat-select [formControl]="cTimezoneControl" required>
+                <mat-optgroup>
+                  <mat-option
+                    *ngFor="let item of clientTimeZones"
+                    [value]="item"
+                  >
+                    {{ item }}
+                  </mat-option>
+                </mat-optgroup>
+              </mat-select>
+              <mat-hint>Time zones are sorted based on contient ^</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <label style="width: 200px"
+              >Active : &nbsp;&nbsp;&nbsp;&nbsp;</label
+            >
+            <mat-radio-group [formControl]="cActiveControl" required>
+              <mat-radio-button value="Y">Yes</mat-radio-button>&nbsp;&nbsp;
+              <mat-radio-button value="N">No</mat-radio-button>
+            </mat-radio-group>
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            mat-raised-button
+            [disabled]="loading"
+            class="mat-elevation-z2"
+            type="submit"
+            class="buttoncolour"
+          >
+            <mat-icon>add_circle</mat-icon
+            ><span
+              *ngIf="loading"
+              class="spinner-border spinner-border-sm mr-1"
+            ></span>
+            Add
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+
+  <div class="col-md">
+    <h5>View Clients</h5>
+    <mat-paginator
+      class="tblcolswidth"
+      [length]="100"
+      [pageSize]="7"
+      [pageSizeOptions]="[7, 10, 25, 50]"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+    <!-- Material Client Mapping Table -->
+    <table class="table-striped">
+      <mat-table
+        striped="true"
+        [dataSource]="dataSource"
+        class="mat-elevation-z1 tblcolswidth headtable table-striped"
+      >
+        <!-- clientId Column -->
+        <ng-container matColumnDef="clientId">
+          <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth-sm">
+            Client Id
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tblcolwidth-sm"
+            >{{ element.clientId }}
+          </mat-cell>
+        </ng-container>
+
+        <!-- clientName Column -->
+        <ng-container matColumnDef="clientName">
+          <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth-md">
+            Client Name
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tblcolwidth-md">
+            <mat-form-field
+              hintLabel="Max 25 characters"
+              appearance="fill"
+              [style.display]="
+                element.configurationFlag === '1' ? 'block' : 'none'
+              "
+            >
+              <mat-label>enter valid name</mat-label>
+              <input
+                matInput
+                #input
+                maxlength="25"
+                [value]="element.clientName"
+                [(ngModel)]="element.clientName"
+              />
+              <mat-hint align="end">{{ input.value?.length || 0 }}/25</mat-hint>
+            </mat-form-field>
+            <span
+              [style.display]="
+                element.configurationFlag === '0' ? 'block' : 'none'
+              "
+            >
+              {{ element.clientName }}
+            </span>
+          </mat-cell>
+        </ng-container>
+
+        <!-- timeZone Column -->
+        <ng-container matColumnDef="timeZone">
+          <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth-md">
+            Time Zone
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tblcolwidth-md">
+            <mat-select
+              [style.display]="
+                element.configurationFlag === '1' ? 'block' : 'none'
+              "
+              [(ngModel)]="element.timeZone"
+            >
+              <mat-option *ngFor="let item of clientTimeZones" [value]="item">
+                {{ item }}
+              </mat-option>
+            </mat-select>
+            <span
+              [style.display]="
+                element.configurationFlag === '0' ? 'block' : 'none'
+              "
+            >
+              {{ element.timeZone }}</span
+            >
+          </mat-cell>
+        </ng-container>
+
+        <!-- active Column -->
+        <ng-container matColumnDef="active">
+          <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth-sm">
+            Active
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tblcolwidth-sm">
+            <mat-checkbox
+              (click)="$event.stopPropagation()"
+              [(ngModel)]="element.uiActive"
+              [disabled]="element.configurationFlag === '0'"
+            >
+            </mat-checkbox>
+          </mat-cell>
+        </ng-container>
+
+        <!-- configurationFlag Column -->
+        <ng-container matColumnDef="configurationFlag">
+          <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth-sm">
+            Actions
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element" class="tblcolwidth-sm">
+            <button
+              mat-raised-button
+              class="mat-elevation-z1"
+              (click)="onAction(element)"
+              [style.display]="
+                element.configurationFlag === '0' ? 'block' : 'none'
+              "
+            >
+              <mat-icon class="iconcolor">create</mat-icon>
+            </button>
+            <!-- <button
+            *ngIf="onedit"
+            mat-raised-button
+            class="mat-elevation-z1"
+            (click)="onAction(element)"
+            [style.display]="
+              element.configurationFlag === '0' ? 'block' : 'none'
+            "
+          >
+            <i class="fa fa-times-circle" color="warn"></i>
+          </button> -->
+            <button
+              mat-raised-button
+              class="mat-elevation-z1"
+              (click)="onAction(element)"
+              [style.display]="
+                element.configurationFlag === '1' ? 'block' : 'none'
+              "
+            >
+              <mat-icon class="iconcolor">check</mat-icon>
+            </button>
+            <button
+              mat-raised-button
+              class="mat-elevation-z1 ml-2"
+              (click)="onclose(element)"
+              [style.display]="
+                element.configurationFlag === '1' ? 'block' : 'none'
+              "
+            >
+              <mat-icon class="ml-2" color="warn">disabled_by_default</mat-icon>
+            </button>
+          </mat-cell>
+        </ng-container>
+
+        <mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+          class="th-light headtable"
+        ></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+      </mat-table>
+    </table>
+  </div>
+</div>
+<!-- footer -->
+<footer class="content1">
+  &copy; <b>eSpyCons 2020 | All Rights Reserved</b>
+</footer>

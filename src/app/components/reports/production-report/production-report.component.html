@@ -1,0 +1,98 @@
+<mat-card class="mat-elevation-z1 colheight-lg displaydown w-100">
+  <div class="row displaydown w-100 mat-elevation-z1 colheight-lg">
+    <div class="col-md-4">
+      <mat-card-header>
+        <mat-card-title class="text-attr mt-3">Select fields</mat-card-title>
+        <!-- <mat-card-subtitle>Choose a fields </mat-card-subtitle> -->
+        <mat-form-field class="tblcolwidth-md" appearance="fill">
+          <mat-label>filter by fields</mat-label>
+          <mat-select>
+            <mat-optgroup>
+              <mat-option *ngFor="let item of fileList" [value]="item.impid">
+                {{ item.fileName }}
+              </mat-option>
+            </mat-optgroup>
+          </mat-select>
+          <mat-hint>file uploded names ^</mat-hint>
+        </mat-form-field>
+      </mat-card-header>
+    </div>
+
+    <div class="col-md-3 mt-3">
+      <div>
+        <ejs-daterangepicker
+          placeholder="Select a FromDate And ToDate "
+          [startDate]="start"
+          [endDate]="end"
+        ></ejs-daterangepicker>
+      </div>
+    </div>
+    <div class="col-md-1 mt-4">
+      <button mat-raised-button class="mat-elevation-z2 buttoncolour">
+        <mat-icon>search</mat-icon>Search
+      </button>
+    </div>
+    <div class="col-md-1 mt-4">
+      <button mat-raised-button class="mat-elevation-z2 buttoncolour">
+        <mat-icon>file_upload</mat-icon> Extract
+      </button>
+    </div>
+    <div class="col-md-3">
+      <div class="tblcolwidth-xl m-0 mat-card1">
+        <mat-label>Download the Reports</mat-label>
+        <mat-card-actions class="ml-3">
+          <button
+            mat-raised-button
+            class="mat-elevation-z2 ml-4"
+            class="buttoncolour buttonright"
+          >
+            <mat-icon>save_alt</mat-icon>&nbsp;Download
+          </button>
+        </mat-card-actions>
+      </div>
+    </div>
+  </div>
+</mat-card>
+<mat-card class="mt-2">
+  <mat-card-content>
+    <mat-paginator
+      [length]="noOfRows"
+      [pageSize]="7"
+      [pageSizeOptions]="[7, 10, 50, 100]"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+    <div class="inswidth">
+      <!-- Material Client Mapping Table -->
+      <table
+        striped="true"
+        mat-table
+        *ngIf="isShowTable"
+        [dataSource]="dataSource"
+        class="mat-elevation-z1 table-striped"
+      >
+        <!-- Dynamic Columns -->
+        <ng-container
+          *ngFor="let column of columns"
+          [matColumnDef]="column.columnDef"
+        >
+          <th mat-header-cell *matHeaderCellDef class="spaceheader">
+            {{ column.header }}
+          </th>
+          <td mat-cell *matCellDef="let row">{{ column.cell(row) }}</td>
+        </ng-container>
+
+        <tr
+          mat-header-row
+          *matHeaderRowDef="displayedColumns; sticky: true"
+          class="th-light"
+        ></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>
+<!-- footer -->
+<footer class="content1">
+  &copy; <b>eSpyCons 2020 | All Rights Reserved</b>
+</footer>

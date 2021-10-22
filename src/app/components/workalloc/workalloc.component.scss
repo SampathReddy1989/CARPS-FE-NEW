@@ -1,0 +1,72 @@
+@import "../../app.component.scss";
+
+// ::ng-deep.mat-tab-group {
+//   margin-top: -30px;
+//   margin-left: -10px;
+// }
+
+::ng-deep.mat-tab {
+  height: 45px;
+}
+
+::ng-deep.mat-tab-label {
+  min-width: 200px !important;
+  padding: 3px !important;
+  margin: 3px !important;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(0, 0, 0);
+}
+
+::ng-deep.mat-ink-bar {
+  border-bottom: #0736e1 !important;
+}
+
+::ng-deep.mat-card-title {
+  font-size: 15px;
+  font-weight: normal;
+}
+
+.text-attr {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.btn-num {
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 100px;
+}
+.fixtop {
+  margin-top: -9px;
+}
+.buttoncolour {
+  background-color: #0736e1;
+  color: white;
+  border: 1px solid black;
+}
+.sub-menu-back {
+  background-color: #dcdfea;
+}
+footer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  // top: 410px;
+  bottom: 0px;
+  line-height: 18px;
+}
+
+footer a {
+  display: flex;
+  align-items: center;
+}
+.content1 {
+  flex-direction: column;
+  align-items: center;
+  background-color: #0736e1;
+  color: white;
+}
+.mat-tab-label {
+  background-color: #dcdfea;
+}

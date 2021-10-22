@@ -1,0 +1,184 @@
+<mat-tab-group style="margin-top: 110px" class="sub-menu-back">
+  <mat-tab class="mt-5">
+    <ng-template mat-tab-label class="mt-5">
+      <b> <fa-icon [icon]="faUserPlus"></fa-icon></b>&nbsp;
+      <b>Audit Allocation</b>
+    </ng-template>
+    <ng-template matTabContent>
+      <div style="overflow: hidden">
+        <app-audit-template-details
+          name="AuditAllocation"
+          (agentData)="onAuditAssignData($event)"
+          (tabledata)="onTableAssignData($event)"
+          [refreshAADataSubject]="refreshAADataSubject.asObservable()"
+        ></app-audit-template-details>
+        <div class="row p-2 text-attr">
+          <div class="col-md">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Audit Allocation Account</mat-card-title>
+                <mat-card-subtitle
+                  >Choose user audit operation</mat-card-subtitle
+                >
+              </mat-card-header>
+              <mat-card-content>
+                <div class="row p-2">
+                  <div class="col-md-2">
+                    <mat-form-field hintLabel="max accounts" appearance="fill">
+                      <mat-label>No. of accounts</mat-label>
+                      <input
+                        name="audit-allocation"
+                        matInput
+                        maxlength="25"
+                        type="number"
+                        [(ngModel)]="noOfAccounts"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-2">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Select user to audit assign</mat-label>
+                      <mat-select [formControl]="allocUsers" required multiple>
+                        <mat-select-trigger>
+                          {{ allocUsers.value ? allocUsers.value[0] : "" }}
+                          <span *ngIf="allocUsers.value?.length > 1">
+                            (+{{ allocUsers.value.length - 1 }}
+                            {{
+                              allocUsers.value?.length === 2
+                                ? "other"
+                                : "others"
+                            }})
+                          </span>
+                        </mat-select-trigger>
+                        <mat-option
+                          *ngFor="let item of userList"
+                          [value]="item.ntlg"
+                        >
+                          {{ item.ntlg }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-1 p-2">
+                    <button
+                      mat-raised-button
+                      class="mat-elevation-z2 buttoncolour"
+                      (click)="onAssign($event)"
+                    >
+                      <mat-icon>send</mat-icon> Assign
+                    </button>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+        <app-audit-auditcommon-details
+          name="AuditAllocation"
+          [tabledata]="tableAssignData"
+        ></app-audit-auditcommon-details>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <b><fa-icon [icon]="faUserMinus"></fa-icon></b> &nbsp;
+      <b>Audit Reallocation</b>
+    </ng-template>
+    <ng-template matTabContent>
+      <div style="overflow: hidden">
+        <app-audit-reallocation
+          name="AuditReallocation"
+          (agentData)="onAuditUnassignData($event)"
+          (tabledata)="onTableUnassignData($event)"
+          [refreshauditDataSubject]="refreshauditDataSubject.asObservable()"
+        ></app-audit-reallocation>
+        <div class="row p-2 text-attr">
+          <div class="col-md">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Audit Reallocation Account</mat-card-title>
+                <mat-card-subtitle
+                  >Choose user audit operation</mat-card-subtitle
+                >
+              </mat-card-header>
+              <mat-card-content>
+                <div class="row p-2">
+                  <div class="col-md-2">
+                    <mat-form-field hintLabel="max accounts" appearance="fill">
+                      <mat-label>No. of accounts</mat-label>
+                      <input
+                        name="audit-reallocation"
+                        matInput
+                        maxlength="25"
+                        type="number"
+                        [(ngModel)]="noOfreAccounts"
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-2">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Select user to audit assign</mat-label>
+                      <mat-select
+                        [formControl]="allocreauUsers"
+                        required
+                        multiple
+                      >
+                        <mat-select-trigger>
+                          {{
+                            allocreauUsers.value ? allocreauUsers.value[0] : ""
+                          }}
+                          <span *ngIf="allocreauUsers.value?.length > 1">
+                            (+{{ allocreauUsers.value.length - 1 }}
+                            {{
+                              allocreauUsers.value?.length === 2
+                                ? "other"
+                                : "others"
+                            }})
+                          </span>
+                        </mat-select-trigger>
+                        <mat-option
+                          *ngFor="let item of userList"
+                          [value]="item.ntlg"
+                        >
+                          {{ item.ntlg }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-1 p-2">
+                    <button
+                      mat-raised-button
+                      class="mat-elevation-z2 buttoncolour"
+                      (click)="onauditreallotAssign($event)"
+                    >
+                      <mat-icon>send</mat-icon> Reassign
+                    </button>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+        <app-audit-auditcommon-details
+          name="AuditReallocation"
+          [tabledata]="tablereUnassignData"
+        ></app-audit-auditcommon-details>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <b><fa-icon [icon]="faUserCheck"></fa-icon></b> &nbsp; <b>Audit Inbox</b>
+    </ng-template>
+    <ng-template matTabContent>
+      <app-audit-inbox name="AuditInbox"></app-audit-inbox>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
+<!-- footer -->
+<footer class="content1">
+  &copy; <b>eSpyCons 2020 | All Rights Reserved</b>
+</footer>

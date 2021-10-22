@@ -1,0 +1,31 @@
+.form {
+  min-width: 400px;
+  max-width: 400px;
+  width: 400px;
+  text-align: center;
+  margin: auto;
+  border-left: 10px solid rgb(244, 67, 54) !important;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+.login {
+  margin-top: 120px;
+  padding: 3rem;
+  background-color: #6d88e8;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
+::ng-deep.mat-form-field-infix {
+  width: 300px !important;
+}
+.buttoncolour {
+  background-color: #0736e1;
+  color: white;
+  border: 1px solid black;
+}
+.glo {
+  // background: linear-gradient(to right, #6b6bdc, #6b6bdc);
+  background-color: #0736e1;
+}

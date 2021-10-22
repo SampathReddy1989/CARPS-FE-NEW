@@ -1,0 +1,59 @@
+@import "../../app.component.scss";
+
+.navbar {
+  height: 45px;
+  align-items: center;
+  background-color: #0736e1;
+  color: white;
+}
+.menuhover:hover {
+  color: brown;
+}
+.menufont {
+  font-size: 15px;
+}
+.sticky-top {
+  margin-top: 64px;
+  position: fixed;
+  width: 100%;
+}
+
+.nav {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.nav-item,
+.nav-link {
+  margin-left: 10px;
+  margin-right: 10px;
+  // color: rgb(61, 95, 204);
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.nav-item:hover {
+  background-color: rgba(104, 104, 104, 0.479);
+}
+
+.dropdown-menu {
+  margin: 0.2rem 0 0;
+}
+
+.dropdown-item {
+  font-size: 14px;
+  font-weight: 400;
+  // color: rgba(0, 0, 0, 0.8);
+}
+
+.dropdown-item:hover {
+  background-color: $base-color;
+}
+
+.active-link {
+  border-bottom: thick solid $accent-color !important;
+}
+
+.not-active-link {
+  border: none;
+}

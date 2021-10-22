@@ -1,0 +1,139 @@
+<div class="row font-weight-normal w-100" style="margin-top: 115px">
+  <div style="margin-left: 30px">
+    <h5 class="text-dark">Inventory Import</h5>
+    <!-- Material Card for File Upload -->
+    <mat-card class="tblcolwidth-lg">
+      <mat-card-header>
+        <mat-card-title>Upload File with inventory data</mat-card-title>
+        <mat-card-subtitle
+          >Choose a appropriate client for which inventory is to be configured
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="ml-3">
+          <app-file-upload
+            (complete)="onFileComplete($event)"
+            [target]="uploadFileUrlPath"
+            (fileload)="onFileLoad($event)"
+          >
+          </app-file-upload>
+        </div>
+      </mat-card-content>
+      <mat-card-header *ngIf="isFileInfoShow()">
+        <mat-card-subtitle class="file-info file-info-success"
+          >File : {{ uiFileInfo.fileName }}<br />
+          Uploaded at : {{ uiFileInfo.infoTime }}
+        </mat-card-subtitle>
+      </mat-card-header>
+
+      <hr *ngIf="isFileInfoShow()" />
+      <mat-card-header *ngIf="isFileInfoShow()">
+        <mat-card-title>Recent Upload File History</mat-card-title>
+        <mat-chip-list>
+          <mat-chip (click)="clearFiles()">
+            Clear History
+            <mat-icon>delete_forever</mat-icon>
+          </mat-chip>
+        </mat-chip-list>
+      </mat-card-header>
+      <mat-card-content *ngIf="isFileInfoShow()">
+        <ul>
+          <li *ngFor="let finfo of filesInfo.reverse()">
+            File: {{ finfo.fileName }} <br />
+            <span class="file-info">{{ finfo.infoTime }}</span>
+          </li>
+        </ul>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="col-md">
+    <h5 class="text-dark">Inventory Details</h5>
+    <mat-card class="tblcolwidth-lg m-0">
+      <mat-card-header>
+        <mat-card-title>View of uploaded inventory data</mat-card-title>
+        <mat-card-subtitle
+          >The data shows records after extracted from file upload. Valid
+          records can be used for further processing. Note that if there are any
+          invalid records, either correct or remove them entirely, then
+          <b>re-upload</b> the complete excel document.
+        </mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content
+        *ngIf="isValidData()"
+        class="d-flex justify-content-center"
+      >
+        <ngx-charts-pie-chart
+          [view]="view"
+          [scheme]="colorScheme"
+          [results]="pieData"
+          [gradient]="gradient"
+          [legend]="showLegend"
+          [legendTitle]="legendTitle"
+          [legendPosition]="legendPosition"
+          [labels]="showLabels"
+          [doughnut]="isDoughnut"
+          [arcWidth]="arcWidth"
+        >
+        </ngx-charts-pie-chart>
+        <div
+          class="pecentValid"
+          style="font-size: 1.6rem"
+          *ngIf="isValidData()"
+        >
+          {{ percentValid }}%
+          <div class="pl-1 font-weight-light" style="font-size: 1.2rem">
+            Valid
+          </div>
+        </div>
+        <div
+          class="pecentValid pl-1 font-weight-light"
+          style="font-size: 1.2rem"
+          *ngIf="!isValidData()"
+        >
+          Invalid
+        </div>
+      </mat-card-content>
+      <mat-card-title
+        class="d-flex justify-content-center text-danger"
+        *ngIf="!isValidData()"
+        style="height: 100px; align-items: center"
+        >Invalid or No Data
+      </mat-card-title>
+      <mat-card-actions>
+        <button
+          mat-raised-button
+          class="mat-elevation-z2 m-2"
+          class="buttoncolour"
+          (click)="onSaveAll()"
+          [disabled]="!isSaveData()"
+        >
+          <mat-icon>save_alt</mat-icon>&nbsp;Save
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <div class="col-md" *ngIf="isInValidData()">
+    <h5>Inventory Invalid Records</h5>
+    <mat-card class="tblcolwidth-xl m-0">
+      <mat-card-title>Download of uploaded inventory data</mat-card-title>
+      <mat-card-actions>
+        <a href="{{ getDownloadLink() }}">
+          <button
+            mat-raised-button
+            class="mat-elevation-z2 m-2"
+            class="buttoncolour"
+            [disabled]="isSaveData()"
+          >
+            <mat-icon>save_alt</mat-icon>&nbsp;Download
+          </button>
+        </a>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+<!-- footer -->
+<footer class="content1">
+  &copy; <b>eSpyCons 2020 | All Rights Reserved</b>
+</footer>

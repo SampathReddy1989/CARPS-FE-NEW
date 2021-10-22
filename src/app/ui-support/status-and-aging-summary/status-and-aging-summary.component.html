@@ -1,0 +1,42 @@
+<mat-card-content>
+  <div class="row mr-2">
+    <div class="col-md">
+      <div class="m-0 p-3 text-center">
+        Claim Account
+      </div>
+      <div class="m-2" *ngFor="let item of hbData">
+        <div>
+          {{ item.name }}<span class="float-right">{{ item.value }}</span>
+        </div>
+        <div class="progress mb-2">
+          <div
+            class="progress-bar"
+            [ngClass]="item.css"
+            [ngStyle]="{ width: item.value + '%' }"
+          ></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md p-0">
+      <div class="m-0 p-3 text-center">
+        Aging Summary
+      </div>
+      <ngx-charts-pie-chart
+        #pieChart
+        [view]="pieView"
+        [scheme]="pieColorScheme"
+        [results]="pieData"
+        [gradient]="false"
+        [legendTitle]="legendTitle"
+        [legend]="true"
+        [legendPosition]="legendPosition"
+        [labels]="false"
+        [doughnut]="false"
+        (select)="onSelect($event)"
+        (activate)="onActivate($event)"
+        (deactivate)="onDeactivate($event)"
+      >
+      </ngx-charts-pie-chart>
+    </div>
+  </div>
+</mat-card-content>

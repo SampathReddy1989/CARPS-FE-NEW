@@ -1,0 +1,57 @@
+@import "../client-mapping/client-mapping.component.scss";
+
+$tblcoltot: 300px; // 10sm
+
+// .tblcolswidth {
+//   min-width: 1200px;
+//   width: $tblcoltot;
+//   max-width: $tblcoltot;
+// }
+// .mat-table {
+//     overflow: hidden;
+//     max-height: 400px;
+//     width: 100%;
+//   }
+// .inswidth {
+//   overflow-y: auto;
+// }
+.tblcolwidth1-sm {
+  min-width: 120px;
+  width: $tblcolsm1;
+  max-width: $tblcolsm1;
+}
+.tblcolwidth-lg {
+  min-width: $tblcollg;
+  width: $tblcollg;
+  max-width: $tblcollg;
+  margin-left: -26px;
+}
+.instblwidth {
+  width: 1235px;
+}
+footer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: 5px;
+  bottom: 0px;
+  line-height: 18px;
+}
+
+footer a {
+  display: flex;
+  align-items: center;
+}
+.content1 {
+  flex-direction: column;
+  align-items: center;
+  background-color: #0736e1;
+  color: white;
+}
+.mat-row:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.mat-row:nth-child(odd) {
+  background-color: inherit;
+}

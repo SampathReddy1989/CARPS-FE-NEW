@@ -1,0 +1,453 @@
+<div class="row font-weight-normal w-100" style="margin-top: 125px">
+  <div style="margin-left: 20px" class="col-md-3">
+    <h5>Add User</h5>
+    <form [formGroup]="formGroup" (ngSubmit)="onAdd()">
+      <!-- Material Card using Form -->
+      <mat-card class="tblcolwidth-lg">
+        <mat-card-header>
+          <mat-card-subtitle>New User can be Added Here </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            <mat-form-field
+              class="tblcolwidth-xmd"
+              hintLabel="Max 25 characters"
+              appearance="fill"
+            >
+              <mat-label>Employee ID</mat-label>
+              <input
+                matInput
+                #input
+                type="number"
+                maxlength="25"
+                [formControl]="aEmpIdControl"
+                required
+              />
+              <mat-hint align="end">{{ input.value?.length || 0 }}/25</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field
+              class="tblcolwidth-xmd"
+              hintLabel="Max 25 characters"
+              appearance="fill"
+            >
+              <mat-label>Employee Name</mat-label>
+              <input
+                matInput
+                #input
+                maxlength="25"
+                [formControl]="aEmpNameControl"
+                required
+              />
+              <mat-hint align="end">{{ input.value?.length || 0 }}/25</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field
+              class="tblcolwidth-xmd"
+              hintLabel="Max 25 characters"
+              appearance="fill"
+            >
+              <mat-label>NTLG</mat-label>
+              <input
+                matInput
+                #input
+                maxlength="25"
+                [formControl]="aNtlgControl"
+                required
+              />
+              <mat-hint align="end">{{ input.value?.length || 0 }}/25</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field
+              class="tblcolwidth-xmd"
+              hintLabel="Max 10 characters"
+              appearance="fill"
+            >
+              <mat-label>Password</mat-label>
+              <input
+                matInput
+                maxlength="10"
+                [type]="hide ? 'password' : 'text'"
+                [formControl]="aPassControl"
+                required
+              />
+              <button
+                mat-icon-button
+                matSuffix
+                (click)="hide = !hide"
+                [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide"
+              >
+                <mat-icon>{{
+                  hide ? "visibility_off" : "visibility"
+                }}</mat-icon>
+              </button>
+              <mat-hint align="end">{{ input.value?.length || 0 }}/10</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="tblcolwidth-xmd" appearance="fill">
+              <mat-label>Select Client</mat-label>
+              <mat-select [formControl]="aClientControl" required>
+                <mat-optgroup>
+                  <mat-option
+                    *ngFor="let item of clientsData"
+                    [value]="item.clientId"
+                  >
+                    {{ item.clientName }}
+                  </mat-option>
+                </mat-optgroup>
+              </mat-select>
+              <mat-hint>Client names ^</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field
+              class="tblcolwidth-xmd"
+              hintLabel="Max 25 characters"
+              appearance="fill"
+            >
+              <mat-label>PseudoName</mat-label>
+              <input
+                matInput
+                #input
+                maxlength="25"
+                [formControl]="apseudoNameControl"
+                required
+              />
+              <mat-hint align="end">{{ input.value?.length || 0 }}/25</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="tblcolwidth-xmd" appearance="fill">
+              <mat-label>Select Role </mat-label>
+              <mat-select [formControl]="aRoleControl" required>
+                <mat-optgroup>
+                  <mat-option *ngFor="let item of roles" [value]="item">
+                    {{ item.roleName }}
+                  </mat-option>
+                </mat-optgroup>
+              </mat-select>
+              <mat-hint>Client names ^</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field
+              class="tblcolwidth-xmd"
+              hintLabel="Max 5 characters"
+              appearance="fill"
+            >
+              <mat-label>Production Target</mat-label>
+              <input
+                matInput
+                #input
+                type="number"
+                maxlength="5"
+                [formControl]="aProdControl"
+                required
+              />
+              <mat-hint align="end">{{ input.value?.length || 0 }}/5</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <label style="width: 200px"
+              >Active : &nbsp;&nbsp;&nbsp;&nbsp;</label
+            >
+            <mat-radio-group [formControl]="aActiveControl" required>
+              <mat-radio-button value="Y">Yes</mat-radio-button>&nbsp;&nbsp;
+              <mat-radio-button value="N">No</mat-radio-button>
+            </mat-radio-group>
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            mat-raised-button
+            [disabled]="loading"
+            class="mat-elevation-z2"
+            type="submit"
+            class="buttoncolour"
+          >
+            <mat-icon>add_circle</mat-icon
+            ><span
+              *ngIf="loading"
+              class="spinner-border spinner-border-sm mr-1"
+            ></span>
+            Add
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </div>
+
+  <div class="col-md-6">
+    <h5>View Users</h5>
+
+    <mat-paginator
+      class="tblcolswidth"
+      [length]="100"
+      [pageSize]="10"
+      [pageSizeOptions]="[5, 10, 25, 50]"
+      showFirstLastButtons
+    >
+    </mat-paginator>
+    <!-- Material Client Mapping Table -->
+    <mat-table
+      [dataSource]="dataSource"
+      class="mat-elevation-z1 tblcolswidth"
+      width="100%"
+    >
+      <!-- configurationFlag Column -->
+      <ng-container matColumnDef="configurationFlag">
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm1">
+          Actions
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth1-sm1">
+          <button
+            mat-raised-button
+            class="mat-elevation-z1"
+            (click)="onAction(element)"
+            [style.display]="!element.configurationFlag ? 'block' : 'none'"
+          >
+            <mat-icon class="iconcolor">create</mat-icon>
+          </button>
+          <button
+            mat-raised-button
+            class="mat-elevation-z1"
+            (click)="onAction(element)"
+            [style.display]="element.configurationFlag ? 'block' : 'none'"
+          >
+            <mat-icon class="iconcolor">check</mat-icon>
+          </button>
+          <button
+            mat-raised-button
+            class="mat-elevation-z1 ml-1"
+            (click)="onclose(element)"
+            [style.display]="element.configurationFlag ? 'block' : 'none'"
+          >
+            <mat-icon color="warn">disabled_by_default</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <!-- empid Column -->
+      <ng-container matColumnDef="empid">
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm">
+          Employee ID
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth1-sm">
+          <mat-form-field
+            hintLabel="Max 25 characters"
+            appearance="fill"
+            [style.display]="element.configurationFlag ? 'block' : 'none'"
+          >
+            <mat-label>enter valid id</mat-label>
+            <input
+              matInput
+              #input
+              maxlength="25"
+              [value]="element.empid"
+              [(ngModel)]="element.empid"
+            />
+            <mat-hint align="end">{{ input.value?.length || 0 }}/25</mat-hint>
+          </mat-form-field>
+          <span [style.display]="!element.configurationFlag ? 'block' : 'none'">
+            {{ element.empid }}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm">
+          Employee Name
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth1-sm">
+          <mat-form-field
+            hintLabel="Max 25 characters"
+            appearance="fill"
+            [style.display]="element.configurationFlag ? 'block' : 'none'"
+          >
+            <mat-label>enter valid name</mat-label>
+            <input
+              matInput
+              #input
+              maxlength="25"
+              [value]="element.name"
+              [(ngModel)]="element.name"
+            />
+            <mat-hint align="end">{{ input.value?.length || 0 }}/25</mat-hint>
+          </mat-form-field>
+          <span [style.display]="!element.configurationFlag ? 'block' : 'none'">
+            {{ element.name }}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- ntlg Column -->
+      <ng-container matColumnDef="ntlg">
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm">
+          NTLG
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth1-sm">
+          {{ element.ntlg }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- password Column -->
+      <ng-container matColumnDef="password">
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm">
+          Password
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth1-sm">
+          <mat-form-field
+            hintLabel="Max 10 characters"
+            appearance="fill"
+            [style.display]="element.configurationFlag ? 'block' : 'none'"
+          >
+            <input
+              matInput
+              maxlength="10"
+              type="password"
+              [(ngModel)]="element.password"
+            />
+            <mat-hint align="end">{{ input.value?.length || 0 }}/10</mat-hint>
+          </mat-form-field>
+          <span [style.display]="!element.configurationFlag ? 'block' : 'none'">
+            *
+            <!-- {{element.password}} -->
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- clientName Column -->
+      <ng-container matColumnDef="clientName">
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm">
+          Client Name
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth1-sm">
+          <mat-select
+            [style.display]="element.configurationFlag ? 'block' : 'none'"
+            (selectionChange)="onChange($event, element, 'client')"
+            [value]="getSelected(element, 'client')"
+          >
+            <mat-optgroup>
+              <mat-option *ngFor="let item of clientsData" [value]="item">
+                {{ item.clientName }}
+              </mat-option>
+            </mat-optgroup>
+          </mat-select>
+          <span [style.display]="!element.configurationFlag ? 'block' : 'none'">
+            {{ getName(element.clientId, "client") }}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- pseudoName Column -->
+      <ng-container matColumnDef="pseudoName">
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm">
+          PseudoName
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth1-sm">
+          <mat-form-field
+            hintLabel="Max 25 characters"
+            appearance="fill"
+            [style.display]="element.configurationFlag ? 'block' : 'none'"
+          >
+            <mat-label>enter valid name</mat-label>
+            <input
+              matInput
+              #input
+              maxlength="25"
+              [value]="element.pseudoName"
+              [(ngModel)]="element.pseudoName"
+            />
+            <mat-hint align="end">{{ input.value?.length || 0 }}/25</mat-hint>
+          </mat-form-field>
+          <span [style.display]="!element.configurationFlag ? 'block' : 'none'">
+            {{ element.pseudoName }}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- role Column -->
+      <ng-container matColumnDef="role">
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm">
+          Role
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth1-sm">
+          <mat-select
+            [style.display]="element.configurationFlag ? 'block' : 'none'"
+            (selectionChange)="onChange($event, element, 'role')"
+            [value]="getSelected(element, 'role')"
+          >
+            <mat-optgroup>
+              <mat-option *ngFor="let item of roles" [value]="item">
+                {{ item.roleName }}
+              </mat-option>
+            </mat-optgroup>
+          </mat-select>
+          <span [style.display]="!element.configurationFlag ? 'block' : 'none'">
+            {{ getName(element.role, "role") }}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- target Column -->
+      <ng-container matColumnDef="target">
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm">
+          Target
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth1-sm">
+          <mat-form-field
+            appearance="fill"
+            [style.display]="element.configurationFlag ? 'block' : 'none'"
+          >
+            <mat-label>enter valid name</mat-label>
+            <input
+              matInput
+              #input
+              type="number"
+              maxlength="25"
+              [value]="element.target"
+              [(ngModel)]="element.target"
+            />
+          </mat-form-field>
+          <span [style.display]="!element.configurationFlag ? 'block' : 'none'">
+            {{ element.target }}
+          </span>
+        </mat-cell>
+      </ng-container>
+
+      <!-- active Column -->
+      <ng-container matColumnDef="active">
+        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm">
+          Active
+        </mat-header-cell>
+        <mat-cell *matCellDef="let element" class="tblcolwidth1-sm">
+          <mat-checkbox
+            (click)="$event.stopPropagation()"
+            [(ngModel)]="element.uiActive"
+            [disabled]="!element.configurationFlag"
+          >
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row
+        *matHeaderRowDef="displayedColumns; sticky: true"
+        class="th-light instblwidth"
+      ></mat-header-row>
+      <mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        class="instblwidth"
+      ></mat-row>
+    </mat-table>
+  </div>
+</div>
+<!-- footer -->
+<footer class="content1">
+  &copy; <b>eSpyCons 2020 | All Rights Reserved</b>
+</footer>

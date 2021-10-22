@@ -1,0 +1,177 @@
+<mat-tab-group class="fixtop w-100 sub-menu-back" style="margin-top: 110px">
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <b><fa-icon [icon]="faUserPlus"></fa-icon></b> &nbsp;
+      <b>Agent Allocation</b>
+    </ng-template>
+    <ng-template matTabContent>
+      <div style="overflow: hidden">
+        <app-common-template
+          name="AgentAssign"
+          (agentData)="onAgentAssignData($event)"
+          (tabledata)="onTableAssignData($event)"
+          [refreshAgentAllocSubject]="refreshAgentAllocSubject.asObservable()">
+        </app-common-template>
+        <div class="row p-2 text-attr">
+          <div class="col-md">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>Agent Assign Account</mat-card-title>
+                <mat-card-subtitle>Choose user assign operation</mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content class="w-100">
+                <div class="row p-2">
+                  <div class="col-md-2">
+                    <mat-form-field hintLabel="max accounts" appearance="fill">
+                      <mat-label>No. of accounts</mat-label>
+                      <input
+                        matInput
+                        maxlength="25"
+                        type="number"
+                        [(ngModel)]="noOfAccounts"/>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-2">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Select user to assign</mat-label>
+                      <mat-select [formControl]="allocUsers" required multiple>
+                        <mat-select-trigger>
+                          {{ allocUsers.value ? allocUsers.value[0] : "" }}
+                          <span *ngIf="allocUsers.value?.length > 1">
+                            (+{{ allocUsers.value.length - 1 }}
+                            {{
+                              allocUsers.value?.length === 2
+                                ? "other"
+                                : "others"
+                            }})
+                          </span>
+                        </mat-select-trigger>
+                        <mat-option
+                          *ngFor="let item of userList"
+                          [value]="item.ntlg">
+                          {{ item.ntlg }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-1 p-2">
+                    <button
+                      mat-raised-button
+                      class="mat-elevation-z2"
+                      class="buttoncolour"
+                      (click)="onAssign($event)">
+                      <mat-icon>send</mat-icon>
+                      <span> Assign</span>
+                    </button>
+                  </div>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+        <app-common-details
+          name="AgentAssign"
+          [tabledata]="tableAssignData"
+          (allocpaginationLogic)="alloconpaginationLogic($event)">
+        </app-common-details>
+      </div>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <b><fa-icon [icon]="faUserMinus"></fa-icon></b>
+      <b>Agent Reallocation</b>
+    </ng-template>
+    <ng-template matTabContent>
+      <app-agent-reallocation
+        name="AgentReallocationComponent"
+        (agentData)="onAgentUnassignData($event)"
+        (tabledata)="onTableUnassignData($event)"
+        [refreshDataSubject]="refreshDataSubject.asObservable()"
+      ></app-agent-reallocation>
+      <div class="row p-2 text-attr w-100">
+        <div class="col-md w-100">
+          <mat-card class="w-100">
+            <mat-card-header>
+              <mat-card-title>Agent Unassign Account</mat-card-title>
+              <mat-card-subtitle
+                >Click Unassign to release account(s) from agent
+              </mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+              <div class="row p-2">
+                <div class="col-md-2">
+                  <mat-form-field hintLabel="max accounts" appearance="fill">
+                    <mat-label>No. of accounts</mat-label>
+                    <input
+                      name="AR-NOA"
+                      matInput
+                      maxlength="25"
+                      type="number"
+                      [(ngModel)]="noOfAccountsAR"
+                    />
+                  </mat-form-field>
+                </div>
+                <div class="col-md-1 p-2">
+                  <button
+                    mat-raised-button
+                    class="mat-elevation-z2"
+                    class="buttoncolour"
+                    (click)="onUnassign($event)"
+                  >
+                    <mat-icon>send</mat-icon> Unassign
+                  </button>
+                </div>
+                <div class="col-md-2">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Select user to reassign</mat-label>
+                    <mat-select [formControl]="allocReUsers" required multiple>
+                      <mat-optgroup>
+                        <mat-option
+                          *ngFor="let item of userList"
+                          [value]="item.ntlg"
+                        >
+                          {{ item.ntlg }}
+                        </mat-option>
+                      </mat-optgroup>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-1 p-2">
+                  <button
+                    mat-raised-button
+                    class="mat-elevation-z2"
+                    class="buttoncolour"
+                    (click)="onReassign($event)"
+                  >
+                    <mat-icon>send</mat-icon> Reassign
+                  </button>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <app-common-details
+        name="AgentReallocation"
+        [tabledata]="tableUnassignData"
+        (paginationLogic)="realloconpaginationLogic($event)"
+      ></app-common-details>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <b><fa-icon [icon]="faUserCheck"></fa-icon></b> &nbsp; <b>Agent Inbox</b>
+    </ng-template>
+    <ng-template matTabContent>
+      <app-agent-inbox name="AgentInboxComponent"></app-agent-inbox>
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>
+<!-- footer -->
+
+<footer class="content1">
+  &copy; <b>eSpyCons 2020 | All Rights Reserved</b>
+</footer>

@@ -1,0 +1,72 @@
+@import "../client-mapping/client-mapping.component.scss";
+
+// $tblcoltot: 600px; // 5sm 3md
+$tblcollg: 350px;
+
+// .tblcolswidth {
+//     min-width: $tblcoltot;
+//     width: $tblcoltot;
+//     max-width: $tblcoltot;
+// }
+
+.tblcolwidth-lg {
+  min-width: $tblcollg;
+  width: $tblcollg;
+  max-width: $tblcollg;
+  margin-left: -26px;
+}
+.mat-table {
+  overflow: auto;
+  max-height: 400px;
+  width: 100%;
+}
+.inswidth {
+  overflow-y: auto;
+}
+.tblcolswidth {
+  min-width: 946px;
+  width: $tblcoltot;
+  max-width: $tblcoltot;
+  margin-top: 10px;
+}
+.tblcolwidth1-md {
+  min-width: 128px;
+  width: $tblcolmd2;
+  max-width: $tblcolmd2;
+}
+// .tblcolwidth1-sm {
+//     min-width: 128px;
+//     width: $tblcolsm1;
+//     max-width: $tblcolsm1;
+//   }
+.tblcolwidth1-sm1 {
+  min-width: 105px;
+  width: 92px;
+  max-width: 150px;
+}
+footer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  top: 5px;
+  bottom: 0px;
+  line-height: 18px;
+}
+
+footer a {
+  display: flex;
+  align-items: center;
+}
+.content1 {
+  flex-direction: column;
+  align-items: center;
+  background-color: #0736e1;
+  color: white;
+}
+.mat-row:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.mat-row:nth-child(odd) {
+  background-color: inherit;
+}

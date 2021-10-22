@@ -1,0 +1,60 @@
+<mat-card style="margin-top: 110px">dashboard works1!</mat-card>
+
+<!-- client selection screen -->
+
+<ng-template #clientDialog>
+  <h2 mat-dialog-title class="text-white">Choose Client</h2>
+  <mat-dialog-content>
+    <form [formGroup]="formGroup" class="bgcolor1">
+      <mat-card class="tblcolwidth-lg bgcolor1">
+        <mat-card-header>
+          <mat-card-subtitle>
+            <span class="text-white">
+              selecting client here, shall be applied across the further
+              operations
+            </span>
+            <p>
+              <br />
+              <mat-form-field class="tblcolwidth-md" appearance="fill">
+                <mat-label class="text-white">Select client name</mat-label>
+                <mat-select
+                  [formControl]="aNameControl"
+                  required
+                  (selectionChange)="onClientChange($event)"
+                >
+                  <mat-optgroup>
+                    <mat-option
+                      *ngFor="let item of clients"
+                      [value]="item.clientId"
+                    >
+                      {{ item.clientName }}
+                    </mat-option>
+                  </mat-optgroup>
+                </mat-select>
+                <mat-hint class="text-white">Client names ^</mat-hint>
+              </mat-form-field>
+            </p>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content> </mat-card-content>
+      </mat-card>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions class="float-right">
+    <button
+      mat-raised-button
+      class="mat-elevation-z1 buttoncolour"
+      type="submit"
+      (click)="onGoClient($event)"
+    >
+      <mat-icon class="text-white">arrow_forward</mat-icon>
+      <span class="text-white"> Go!</span>
+    </button>
+  </mat-dialog-actions>
+</ng-template>
+
+<!-- footer -->
+
+<footer class="content1">
+  &copy; <b>eSpyCons 2020 | All Rights Reserved</b>
+</footer>

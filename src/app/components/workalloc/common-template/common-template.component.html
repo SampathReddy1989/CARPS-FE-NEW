@@ -1,0 +1,290 @@
+<div class="row p-2">
+  <div class="col-md">
+    <mat-card class="mat-elevation-z1 colheight-lg">
+      <mat-card-header>
+        <mat-card-title class="text-attr">Select file</mat-card-title>
+        <mat-card-subtitle
+          >Choose a file that was recently uploded</mat-card-subtitle
+        >
+        <mat-form-field class="tblcolwidth-md" appearance="fill">
+          <mat-label>filter by file</mat-label>
+          <mat-select
+            (selectionChange)="onFileChange($event)"
+            required
+            [value]="getSelectedFileInfo()"
+          >
+            <mat-optgroup>
+              <mat-option *ngFor="let item of fileList" [value]="item.impid">
+                {{ item.fileName }}
+              </mat-option>
+            </mat-optgroup>
+          </mat-select>
+          <mat-hint>file uploded names ^</mat-hint>
+        </mat-form-field>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="row mr-2">
+          <div class="col-md">
+            <div class="m-0 p-3 text-center">Claim Account</div>
+            <div class="m-2" *ngFor="let item of hbData">
+              <div>
+                {{ item.name }}<span class="float-right">{{ item.value }}</span>
+              </div>
+              <div class="progress mb-2">
+                <div
+                  class="progress-bar"
+                  [ngClass]="item.css"
+                  [ngStyle]="{ width: item.value + '%' }"
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md p-0">
+            <div class="m-0 p-3 text-center">Aging Summary</div>
+            <ngx-charts-pie-chart
+              #pieChart
+              [view]="pieView"
+              [scheme]="pieColorScheme"
+              [results]="pieData"
+              [gradient]="false"
+              [legendTitle]="legendTitle"
+              [legend]="true"
+              [legendPosition]="legendPosition"
+              [labels]="false"
+              [doughnut]="false"
+              (select)="onSelect($event)"
+              (activate)="onActivate($event)"
+              (deactivate)="onDeactivate($event)"
+            >
+            </ngx-charts-pie-chart>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <div class="col-md">
+    <mat-card class="mat-elevation-z1 colheight-lg">
+      <mat-card-content>
+        <mat-tab-group>
+          <mat-tab>
+            <ng-template mat-tab-label> Custom Search </ng-template>
+            <div style="overflow: hidden">
+              <div class="row m-0 p-2">
+                <div class="col-md p-0">
+                  <mat-card-title
+                    >Choose a criteria based searching</mat-card-title
+                  >
+                  <mat-card-subtitle
+                    >changes are reflected at the table below</mat-card-subtitle
+                  >
+                </div>
+                <div class="col-md p-0">
+                  <mat-card-title
+                    ><a [routerLink]="" (click)="showCriteriaDialog($event)"
+                      ><b>+Show Criteria(s) Added</b>
+                    </a></mat-card-title
+                  >
+                </div>
+              </div>
+              <div class="row m-0">
+                <div class="col-md p-0">
+                  <mat-vertical-stepper #stepper1>
+                    <mat-step>
+                      <ng-template matStepLabel
+                        >Filter by field {{ getSelectedFieldAliasName() }}
+                      </ng-template>
+                      <mat-form-field appearance="fill">
+                        <mat-label>filter by field</mat-label>
+                        <mat-select
+                          (selectionChange)="onFieldChange($event)"
+                          required
+                        >
+                          <mat-optgroup>
+                            <mat-option
+                              *ngFor="let item of fieldList"
+                              [value]="item"
+                            >
+                              {{ item.aliasName }}
+                            </mat-option>
+                          </mat-optgroup>
+                        </mat-select>
+                        <mat-hint>fields names ^</mat-hint>
+                      </mat-form-field>
+                      <div>
+                        <button mat-button matStepperNext>Next</button>
+                      </div>
+                    </mat-step>
+                    <mat-step>
+                      <ng-template matStepLabel
+                        >Enter or Choose values</ng-template
+                      >
+
+                      <mat-form-field
+                        hintLabel="Max 25 characters"
+                        appearance="fill"
+                        *ngIf="isShowFieldInput() && !isDateField()"
+                      >
+                        <mat-label>enter value</mat-label>
+                        <input
+                          matInput
+                          #fieldText
+                          maxlength="25"
+                          [(ngModel)]="fieldValAppended"
+                        />
+                        <mat-hint align="end"
+                          >{{ fieldText.value?.length || 0 }}/25</mat-hint
+                        >
+                      </mat-form-field>
+                      <mat-form-field
+                        hintLabel="Max 25 characters"
+                        appearance="fill"
+                        *ngIf="isDateField()"
+                      >
+                        <mat-label>Enter value</mat-label>
+                        <input
+                          name="AgentAllocationDateField"
+                          matInput
+                          #fieldText
+                          maxlength="25"
+                          [(ngModel)]="fieldValAppended"
+                          placeholder="MM/DD/YYYY"
+                        />
+                        <mat-hint align="end"
+                          >{{ fieldText.value?.length || 0 }}/25</mat-hint
+                        >
+                      </mat-form-field>
+                      <div *ngIf="!isShowFieldInput()">
+                        <button mat-button (click)="onFieldSelectAll($event)">
+                          Select All
+                        </button>
+                        <mat-selection-list #fields class="scroolstepper">
+                          <mat-list-option
+                            *ngFor="let fieldVal of apiFieldValues"
+                            [value]="fieldVal"
+                          >
+                            {{ fieldVal }}
+                          </mat-list-option>
+                        </mat-selection-list>
+                      </div>
+                      <div>
+                        <button
+                          mat-raised-button
+                          class="mat-elevation-z2 buttoncolour"
+                          (click)="onFieldAdd($event, stepper1)"
+                        >
+                          <mat-icon>add</mat-icon> Add
+                        </button>
+                        <button
+                          mat-button
+                          (click)="resetCustomSearch($event, stepper1)"
+                        >
+                          Reset
+                        </button>
+                      </div>
+                    </mat-step>
+                  </mat-vertical-stepper>
+                </div>
+                <div class="col-md p-0">
+                  <mat-vertical-stepper #stepper2>
+                    <mat-step>
+                      <ng-template matStepLabel
+                        >Sort as per Client by Sort
+                        {{ getSelectedSortAliasName() }}
+                      </ng-template>
+                      <mat-form-field appearance="fill">
+                        <mat-label>filter by field</mat-label>
+                        <mat-select
+                          (selectionChange)="onFieldSortChange($event)"
+                          required
+                        >
+                          <mat-optgroup>
+                            <mat-option
+                              *ngFor="let item of sortFieldList"
+                              [value]="item"
+                            >
+                              {{ item.aliasName }}
+                            </mat-option>
+                          </mat-optgroup>
+                        </mat-select>
+                        <mat-hint>fields names ^</mat-hint>
+                      </mat-form-field>
+                      <div>
+                        <button mat-button matStepperNext>Next</button>
+                      </div>
+                    </mat-step>
+                    <mat-step>
+                      <ng-template matStepLabel>Choose order by</ng-template>
+                      <mat-form-field class="tblcolwidth-md" appearance="fill">
+                        <mat-label>sort</mat-label>
+                        <mat-select #sortOrderBy required>
+                          <mat-option value="Asc">Ascending</mat-option>
+                          <mat-option value="Desc">Descending</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                      <div>
+                        <button
+                          mat-raised-button
+                          class="mat-elevation-z2 buttoncolour"
+                          (click)="onSortAdd($event, stepper2)"
+                        >
+                          <mat-icon>add</mat-icon> Add
+                        </button>
+                        <button
+                          mat-button
+                          (click)="resetStepper2($event, stepper2)"
+                        >
+                          Reset
+                        </button>
+                      </div>
+                    </mat-step>
+                  </mat-vertical-stepper>
+                </div>
+              </div>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<ng-template #criteriaDialog>
+  <h2 mat-dialog-title class="text-white">Filters Added List</h2>
+  <mat-dialog-content>
+    <mat-card class="tblcolwidth-lg matcolor">
+      <mat-card-content>
+        <mat-card-subtitle class="text-white"
+          >Showing general field filters added
+        </mat-card-subtitle>
+        <mat-chip-list>
+          <div *ngFor="let map of uiFieldCriteriaMap | keyvalue">
+            <mat-chip
+              *ngIf="!map.key.includes('SORT')"
+              (click)="removeFilter(map.key)"
+            >
+              {{ getUiFilterMapValue(map.key, map.value) }}
+              <mat-icon>delete_forever</mat-icon>
+            </mat-chip>
+          </div>
+        </mat-chip-list>
+      </mat-card-content>
+      <mat-card-content>
+        <mat-card-subtitle class="text-white"
+          >Showing sort field filters added
+        </mat-card-subtitle>
+        <mat-chip-list>
+          <div *ngFor="let map of uiFieldCriteriaMap | keyvalue">
+            <mat-chip
+              *ngIf="map.key.includes('SORT')"
+              (click)="removeFilter(map.key)"
+            >
+              {{ getUiFilterMapValue(map.key, map.value) }}
+              <mat-icon>delete_forever</mat-icon>
+            </mat-chip>
+          </div>
+        </mat-chip-list>
+      </mat-card-content>
+    </mat-card>
+  </mat-dialog-content>
+</ng-template>

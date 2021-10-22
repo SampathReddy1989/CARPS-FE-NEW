@@ -1,0 +1,172 @@
+<nav class="navbar navbar-expand-lg sticky-top mat-elevation-z2 w-100">
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarNavDropdown"
+    aria-controls="navbarNavDropdown"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="nav navbar-nav">
+      <li class="nav-item" [ngClass]="getNavActive('Dashboard')">
+        <a
+          class="nav-link menuhover"
+          href="/home/dashboard"
+          (click)="onNavClick('Dashboard')"
+        >
+          <fa-icon [icon]="faProjectDiagram" class="text-white"></fa-icon>
+          <strong class="text-white" style="font-size: 15px">Dashboard</strong>
+        </a>
+      </li>
+      <li class="nav-item" [ngClass]="getNavActive('Inventory')">
+        <a
+          class="nav-link menuhover"
+          href="/home/import"
+          (click)="onNavClick('Inventory')"
+        >
+          <fa-icon [icon]="faBoxes" class="text-white"></fa-icon>
+          <strong class="text-white" style="font-size: 15px">Inventory</strong>
+        </a>
+      </li>
+      <li class="nav-item" [ngClass]="getNavActive('Work Allocation')">
+        <a
+          class="nav-link menuhover"
+          href="/home/work-allocation"
+          (click)="onNavClick('Work Allocation')"
+        >
+          <fa-icon class="text-white" [icon]="faBriefcase"></fa-icon>
+          <strong class="text-white" style="font-size: 15px"
+            >Work Allocation</strong
+          >
+        </a>
+      </li>
+      <!-- <li class="nav-item" [ngClass]="getNavActive('Transaction')">
+                <a class="nav-link" href="/home" (click)="onNavClick('Transaction')">
+                    <fa-icon [icon]="faBriefcase"></fa-icon> Transaction
+                </a>
+            </li> -->
+      <li class="nav-item" [ngClass]="getNavActive('Audit')">
+        <a
+          class="nav-link menuhover"
+          href="/home/audit-allocation"
+          (click)="onNavClick('Audit')"
+        >
+          <fa-icon class="text-white" [icon]="faBriefcase"></fa-icon>
+          <strong class="text-white" style="font-size: 15px">Audit</strong>
+        </a>
+      </li>
+      <li class="nav-item dropdown" [ngClass]="getNavActive('Reports')">
+        <a
+          class="nav-link dropdown-toggle menuhover"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <fa-icon class="text-white" [icon]="faFileAlt"></fa-icon>
+          <strong class="text-white" style="font-size: 15px">Reports</strong>
+        </a>
+        <div
+          class="dropdown-menu mat-elevation-z1"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <a
+            class="dropdown-item menuhover"
+            href="/home/hourly-report"
+            (click)="onNavClick('Reports')"
+          >
+            <fa-icon [icon]="faIdBadge"></fa-icon>
+            <strong>Hourly-Report</strong>
+          </a>
+          <a
+            class="dropdown-item menuhover"
+            href="/home/production-report"
+            (click)="onNavClick('Reports')"
+          >
+            <fa-icon [icon]="faPortrait"></fa-icon>
+            <strong>Production-Report</strong>
+          </a>
+        </div>
+      </li>
+      <li class="nav-item dropdown" [ngClass]="getNavActive('Masters')">
+        <a
+          class="nav-link dropdown-toggle menuhover"
+          id="navbarDropdownMenuLink"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <fa-icon class="text-white" [icon]="faAsterisk"></fa-icon>
+          <strong class="text-white" style="font-size: 15px">Masters</strong>
+        </a>
+        <div
+          class="dropdown-menu mat-elevation-z1"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
+          <a
+            class="dropdown-item menuhover"
+            href="/home/client"
+            (click)="onNavClick('Masters')"
+          >
+            <fa-icon [icon]="faFire"></fa-icon> <strong>Client</strong>
+          </a>
+          <a
+            class="dropdown-item menuhover"
+            href="/home/scenario"
+            (click)="onNavClick('Masters')"
+          >
+            <fa-icon [icon]="faDice"></fa-icon> <strong>Scenario</strong>
+          </a>
+          <a
+            class="dropdown-item menuhover"
+            href="/home/status-codes"
+            (click)="onNavClick('Masters')"
+          >
+            <fa-icon [icon]="faStream"></fa-icon> <strong>Status Codes</strong>
+          </a>
+          <a
+            class="dropdown-item menuhover"
+            href="/home/action-codes"
+            (click)="onNavClick('Masters')"
+          >
+            <fa-icon [icon]="faBell"></fa-icon> <strong>Action Codes</strong>
+          </a>
+          <div class="dropdown-divider"></div>
+          <a
+            class="dropdown-item menuhover"
+            href="/home/client-mapping"
+            (click)="onNavClick('Masters')"
+          >
+            <fa-icon [icon]="faMapSigns"></fa-icon>
+            <strong>Client Mapping</strong>
+          </a>
+          <a
+            class="dropdown-item menuhover"
+            href="/home/users"
+            (click)="onNavClick('Masters')"
+          >
+            <fa-icon [icon]="faUser"></fa-icon> <strong>User</strong>
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <!-- <form class="form-inline">
+    <input
+      class="form-control"
+      type="search"
+      placeholder="&nbsp;Search"
+      style="width: 250px; height: 30px; font-size: small;"
+      aria-label="Search"
+    />
+    <button mat-button type="submit">
+      <mat-icon>search</mat-icon>
+    </button>
+  </form> -->
+</nav>

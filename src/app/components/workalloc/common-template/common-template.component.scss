@@ -1,0 +1,28 @@
+$colhtlg: 450px;
+
+.mat-tab-group {
+  margin: 0;
+}
+
+.text-attr {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.colheight-lg {
+  min-height: $colhtlg;
+}
+.buttoncolour {
+  background-color: #0736e1;
+  color: white;
+  border: 1px solid black;
+}
+.scroolstepper {
+  width: auto;
+  max-height: 200px;
+  width: 100%;
+  overflow-y: auto;
+}
+.matcolor {
+  background-color: #4d72f5;
+}

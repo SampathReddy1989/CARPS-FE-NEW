@@ -1,0 +1,82 @@
+<!-- <mat-card style="margin-top: 115px">houly-report works!</mat-card> -->
+
+<!-- <mat-form-field appearance="fill" class="datepic">
+  <mat-label> Choose a date</mat-label>
+  <input matInput [matDatepicker]="picker" />
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field> -->
+<div class="col-md-12 datepic w-100">
+  <div class="row">
+    <div class="col-md-5 ml-4">
+      <mat-form-field appearance="fill" class="">
+        <mat-label> Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="col-md-3">
+      <div>
+        <!-- <h5>Inventory Invalid Records</h5> -->
+        <div class="row w-100">
+          <div class="tblcolwidth-xl m-0 mat-card1">
+            <mat-label>Download the Reports</mat-label>
+            <mat-card-actions class="ml-3">
+              <button
+                mat-raised-button
+                class="mat-elevation-z2 ml-4"
+                class="buttoncolour buttonright"
+              >
+                <mat-icon>save_alt</mat-icon>&nbsp;Download
+              </button>
+            </mat-card-actions>
+          </div>
+        </div>
+      </div>
+    </div>
+    <mat-card class="w-100">
+      <mat-card-content>
+        <mat-paginator
+          [length]="noOfRows"
+          [pageSize]="7"
+          [pageSizeOptions]="[7, 10, 50, 100]"
+          showFirstLastButtons
+        >
+        </mat-paginator>
+        <div class="inswidth">
+          <!-- Material Client Mapping Table -->
+          <table
+            striped="true"
+            mat-table
+            *ngIf="isShowTable"
+            [dataSource]="dataSource"
+            class="mat-elevation-z1 table-striped"
+          >
+            <!-- Dynamic Columns -->
+            <ng-container
+              *ngFor="let column of columns"
+              [matColumnDef]="column.columnDef"
+            >
+              <th mat-header-cell *matHeaderCellDef class="spaceheader">
+                {{ column.header }}
+              </th>
+              <td mat-cell *matCellDef="let row">{{ column.cell(row) }}</td>
+            </ng-container>
+
+            <tr
+              mat-header-row
+              *matHeaderRowDef="displayedColumns; sticky: true"
+              class="th-light"
+            ></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+          </table>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+<!-- footer -->
+<footer class="content1">
+  &copy; <b>eSpyCons 2020 | All Rights Reserved</b>
+</footer>
