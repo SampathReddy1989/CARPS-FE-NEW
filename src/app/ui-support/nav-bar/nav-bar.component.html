@@ -19,7 +19,7 @@
           (click)="onNavClick('Dashboard')"
         >
           <fa-icon [icon]="faProjectDiagram" class="text-white"></fa-icon>
-          <strong class="text-white" style="font-size: 15px">Dashboard</strong>
+          <strong class="text-white nav-name-item" style="font-size: 15px">Dashboard</strong>
         </a>
       </li>
       <li class="nav-item" [ngClass]="getNavActive('Inventory')">
@@ -29,7 +29,7 @@
           (click)="onNavClick('Inventory')"
         >
           <fa-icon [icon]="faBoxes" class="text-white"></fa-icon>
-          <strong class="text-white" style="font-size: 15px">Inventory</strong>
+          <strong class="text-white nav-name-item" style="font-size: 15px">Inventory</strong>
         </a>
       </li>
       <li class="nav-item" [ngClass]="getNavActive('Work Allocation')">
@@ -39,7 +39,7 @@
           (click)="onNavClick('Work Allocation')"
         >
           <fa-icon class="text-white" [icon]="faBriefcase"></fa-icon>
-          <strong class="text-white" style="font-size: 15px"
+          <strong class="text-white nav-name-item" style="font-size: 15px"
             >Work Allocation</strong
           >
         </a>
@@ -56,7 +56,7 @@
           (click)="onNavClick('Audit')"
         >
           <fa-icon class="text-white" [icon]="faBriefcase"></fa-icon>
-          <strong class="text-white" style="font-size: 15px">Audit</strong>
+          <strong class="text-white nav-name-item" style="font-size: 15px">Audit</strong>
         </a>
       </li>
       <li class="nav-item dropdown" [ngClass]="getNavActive('Reports')">
@@ -69,7 +69,7 @@
           aria-expanded="false"
         >
           <fa-icon class="text-white" [icon]="faFileAlt"></fa-icon>
-          <strong class="text-white" style="font-size: 15px">Reports</strong>
+          <strong class="text-white nav-name-item" style="font-size: 15px">Reports</strong>
         </a>
         <div
           class="dropdown-menu mat-elevation-z1"
@@ -81,7 +81,7 @@
             (click)="onNavClick('Reports')"
           >
             <fa-icon [icon]="faIdBadge"></fa-icon>
-            <strong>Hourly-Report</strong>
+            <strong class=" nav-name-item">Hourly-Report</strong>
           </a>
           <a
             class="dropdown-item menuhover"
@@ -89,7 +89,7 @@
             (click)="onNavClick('Reports')"
           >
             <fa-icon [icon]="faPortrait"></fa-icon>
-            <strong>Production-Report</strong>
+            <strong  class=" nav-name-item">Production-Report</strong>
           </a>
         </div>
       </li>
@@ -103,7 +103,7 @@
           aria-expanded="false"
         >
           <fa-icon class="text-white" [icon]="faAsterisk"></fa-icon>
-          <strong class="text-white" style="font-size: 15px">Masters</strong>
+          <strong class="text-white nav-name-item" style="font-size: 15px">Masters</strong>
         </a>
         <div
           class="dropdown-menu mat-elevation-z1"
@@ -114,28 +114,28 @@
             href="/home/client"
             (click)="onNavClick('Masters')"
           >
-            <fa-icon [icon]="faFire"></fa-icon> <strong>Client</strong>
+            <fa-icon [icon]="faFire"></fa-icon> <strong  class=" nav-name-item">Client</strong>
           </a>
           <a
             class="dropdown-item menuhover"
             href="/home/scenario"
             (click)="onNavClick('Masters')"
           >
-            <fa-icon [icon]="faDice"></fa-icon> <strong>Scenario</strong>
+            <fa-icon [icon]="faDice"></fa-icon> <strong  class=" nav-name-item">Scenario</strong>
           </a>
           <a
             class="dropdown-item menuhover"
             href="/home/status-codes"
             (click)="onNavClick('Masters')"
           >
-            <fa-icon [icon]="faStream"></fa-icon> <strong>Status Codes</strong>
+            <fa-icon [icon]="faStream"></fa-icon> <strong  class=" nav-name-item">Status Codes</strong>
           </a>
           <a
             class="dropdown-item menuhover"
             href="/home/action-codes"
             (click)="onNavClick('Masters')"
           >
-            <fa-icon [icon]="faBell"></fa-icon> <strong>Action Codes</strong>
+            <fa-icon [icon]="faBell"></fa-icon> <strong  class=" nav-name-item">Action Codes</strong>
           </a>
           <div class="dropdown-divider"></div>
           <a
@@ -144,14 +144,14 @@
             (click)="onNavClick('Masters')"
           >
             <fa-icon [icon]="faMapSigns"></fa-icon>
-            <strong>Client Mapping</strong>
+            <strong  class=" nav-name-item">Client Mapping</strong>
           </a>
           <a
             class="dropdown-item menuhover"
             href="/home/users"
             (click)="onNavClick('Masters')"
           >
-            <fa-icon [icon]="faUser"></fa-icon> <strong>User</strong>
+            <fa-icon [icon]="faUser"></fa-icon> <strong  class=" nav-name-item">User</strong>
           </a>
         </div>
       </li>
