@@ -106,8 +106,11 @@ p {
   align-items: center;
   background-color: #0736e1;
   color: white;
-  position: relative;
-  margin-top: 97px;
+  position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+  //margin-top: 100px;
 }
 
 svg.material-icons {
@@ -263,6 +266,9 @@ a:hover {
 
 footer {
   // margin-top: 320px;
+  //position:fixed;
+  //bottom:0px;
+  //top:400px;
   display: flex;
   align-items: center;
   line-height: 18px;
