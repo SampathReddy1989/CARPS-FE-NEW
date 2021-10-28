@@ -1,89 +1,7 @@
 <div class="row font-weight-normal w-100" style="margin-top: 125px">
-  <div style="margin-left: 20px">
-    <h5>Add Client</h5>
-    <form [formGroup]="formGroup" (ngSubmit)="onAdd()">
-      <!-- Material Card using Form -->
-      <mat-card class="tblcolwidth-lg">
-        <mat-card-header>
-          <mat-card-subtitle
-            >New Client Details can be Added Here
-          </mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>
-            <mat-form-field
-              class="tblcolwidth-md"
-              hintLabel="Max 25 characters"
-              appearance="fill"
-            >
-              <mat-label>Client Name</mat-label>
-              <input
-                matInput
-                #input
-                maxlength="25"
-                placeholder="Ex. espycons"
-                [formControl]="cNameControl"
-                required
-              />
-              <mat-hint align="end">{{ input.value?.length || 0 }}/25</mat-hint>
-            </mat-form-field>
-          </p>
-          <p>
-            <mat-form-field class="tblcolwidth-md" appearance="fill">
-              <mat-label>Select TimeZone</mat-label>
-              <mat-select [formControl]="cTimezoneControl" required>
-                <mat-optgroup>
-                  <mat-option
-                    *ngFor="let item of clientTimeZones"
-                    [value]="item"
-                  >
-                    {{ item }}
-                  </mat-option>
-                </mat-optgroup>
-              </mat-select>
-              <mat-hint>Time zones are sorted based on contient ^</mat-hint>
-            </mat-form-field>
-          </p>
-          <p>
-            <label style="width: 200px"
-              >Active : &nbsp;&nbsp;&nbsp;&nbsp;</label
-            >
-            <mat-radio-group [formControl]="cActiveControl" required>
-              <mat-radio-button value="Y">Yes</mat-radio-button>&nbsp;&nbsp;
-              <mat-radio-button value="N">No</mat-radio-button>
-            </mat-radio-group>
-          </p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button
-            mat-raised-button
-            [disabled]="loading"
-            class="mat-elevation-z2"
-            type="submit"
-            class="buttoncolour"
-          >
-            <mat-icon>add_circle</mat-icon
-            ><span
-              *ngIf="loading"
-              class="spinner-border spinner-border-sm mr-1"
-            ></span>
-            Add
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </form>
-  </div>
-
   <div class="col-md">
     <h5>View Clients</h5>
-    <mat-paginator
-      class="tblcolswidth"
-      [length]="100"
-      [pageSize]="7"
-      [pageSizeOptions]="[7, 10, 25, 50]"
-      showFirstLastButtons
-    >
-    </mat-paginator>
+    
     <!-- Material Client Mapping Table -->
     <table class="table-striped">
       <mat-table
@@ -231,7 +149,89 @@
         ></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
       </mat-table>
+      <mat-paginator
+      class="tblcolswidth"
+      [length]="100"
+      [pageSize]="7"
+      [pageSizeOptions]="[7, 10, 25, 50]"
+      showFirstLastButtons
+    >
+    </mat-paginator>
     </table>
+  </div>
+  <div style="margin-left: 20px">
+    <h5>Add Client</h5>
+    <form [formGroup]="formGroup" (ngSubmit)="onAdd()">
+      <!-- Material Card using Form -->
+      <mat-card class="tblcolwidth-lg">
+        <mat-card-header>
+          <mat-card-subtitle
+            >New Client Details can be Added Here
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p>
+            <mat-form-field
+              class="tblcolwidth-md"
+              hintLabel="Max 25 characters"
+              appearance="fill"
+            >
+              <mat-label>Client Name</mat-label>
+              <input
+                matInput
+                #input
+                maxlength="25"
+                placeholder="Ex. espycons"
+                [formControl]="cNameControl"
+                required
+              />
+              <mat-hint align="end">{{ input.value?.length || 0 }}/25</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <mat-form-field class="tblcolwidth-md" appearance="fill">
+              <mat-label>Select TimeZone</mat-label>
+              <mat-select [formControl]="cTimezoneControl" required>
+                <mat-optgroup>
+                  <mat-option
+                    *ngFor="let item of clientTimeZones"
+                    [value]="item"
+                  >
+                    {{ item }}
+                  </mat-option>
+                </mat-optgroup>
+              </mat-select>
+              <mat-hint>Time zones are sorted based on contient ^</mat-hint>
+            </mat-form-field>
+          </p>
+          <p>
+            <label style="width: 200px"
+              >Active : &nbsp;&nbsp;&nbsp;&nbsp;</label
+            >
+            <mat-radio-group [formControl]="cActiveControl" required>
+              <mat-radio-button value="Y">Yes</mat-radio-button>&nbsp;&nbsp;
+              <mat-radio-button value="N">No</mat-radio-button>
+            </mat-radio-group>
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button
+            mat-raised-button
+            [disabled]="loading"
+            class="mat-elevation-z2"
+            type="submit"
+            class="buttoncolour"
+          >
+            <mat-icon>add_circle</mat-icon
+            ><span
+              *ngIf="loading"
+              class="spinner-border spinner-border-sm mr-1"
+            ></span>
+            Add
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
   </div>
 </div>
 <!-- footer -->
