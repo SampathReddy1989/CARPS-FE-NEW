@@ -1,32 +1,30 @@
-<div class="row font-weight-normal w-100" style="margin-top: 125px">
- 
+<div class="row font-weight-normal w-100 mx-0" style="margin-top: 125px">
+
   <div class="col-md w-100">
-    <h5>View Action Codes</h5>
+    <mat-card class="">
+      <mat-card-header>
+        <mat-card-title>View Action Codes</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-table [dataSource]="dataSource" class="mat-elevation-z1 inswidth w-100">
+          <!-- clientName Column -->
+          <ng-container matColumnDef="clientName" sticky>
+            <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-md">
+              Client Name
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="tblcolwidth1-md">
+              {{ element.clientName }}
+            </mat-cell>
+          </ng-container>
 
-    
-    <!-- Material Client Mapping Table -->
-    <mat-table
-      [dataSource]="dataSource"
-      class="mat-elevation-z1 tblcolswidth inswidth w-100"
-    >
-      <!-- clientName Column -->
-      <ng-container matColumnDef="clientName" sticky>
-        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-md">
-          Client Name
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element" class="tblcolwidth1-md">
-          {{ element.clientName }}
-        </mat-cell>
-      </ng-container>
-
-      <!-- statusCode Column -->
-      <ng-container matColumnDef="statusCode" sticky>
-        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-md">
-          Status Code
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element" class="tblcolwidth1-md">
-          {{ element.statusCode }}
-          <!-- <mat-select
+          <!-- statusCode Column -->
+          <ng-container matColumnDef="statusCode" sticky>
+            <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-md">
+              Status Code
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="tblcolwidth1-md">
+              {{ element.statusCode }}
+              <!-- <mat-select
             [style.display]="element.configurationFlag ? 'block' : 'none'"
             (selectionChange)="onChange($event, element, 'status')"
             [value]="getSelected(element)"
@@ -40,166 +38,125 @@
           <span [style.display]="!element.configurationFlag ? 'block' : 'none'">
             {{ element.statusCode }}
           </span> -->
-        </mat-cell>
-      </ng-container>
+            </mat-cell>
+          </ng-container>
 
-      <!-- actionCode Column -->
-      <ng-container matColumnDef="actionCode" sticky>
-        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-md">
-          Action Code
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element" class="tblcolwidth1-md">
-          <mat-form-field
-            hintLabel="Max 25 characters"
-            appearance="fill"
-            [style.display]="element.configurationFlag ? 'block' : 'none'"
-          >
-            <mat-label>enter action name</mat-label>
-            <input
-              matInput
-              #input
-              maxlength="25"
-              [value]="element.actionCode"
-              [(ngModel)]="element.actionCode"
-            />
-            <mat-hint align="end">{{ input.value?.length || 0 }}/25</mat-hint>
-          </mat-form-field>
-          <span [style.display]="!element.configurationFlag ? 'block' : 'none'">
-            {{ element.actionCode }}
-          </span>
-        </mat-cell>
-      </ng-container>
+          <!-- actionCode Column -->
+          <ng-container matColumnDef="actionCode" sticky>
+            <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-md">
+              Action Code
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="tblcolwidth1-md">
+              <mat-form-field hintLabel="Max 25 characters" appearance="fill"
+                [style.display]="element.configurationFlag ? 'block' : 'none'">
+                <mat-label>enter action name</mat-label>
+                <input matInput #input maxlength="25" [value]="element.actionCode" [(ngModel)]="element.actionCode" />
+                <mat-hint align="end">{{ input.value?.length || 0 }}/25</mat-hint>
+              </mat-form-field>
+              <span [style.display]="!element.configurationFlag ? 'block' : 'none'">
+                {{ element.actionCode }}
+              </span>
+            </mat-cell>
+          </ng-container>
 
-      <!-- billable Column -->
-      <ng-container matColumnDef="billable" sticky>
-        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm1">
-          Billable
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element" class="tblcolwidth1-sm1">
-          <mat-checkbox
-            (click)="$event.stopPropagation()"
-            [(ngModel)]="element.uiBill"
-            [disabled]="!element.configurationFlag"
-          >
-          </mat-checkbox>
-        </mat-cell>
-      </ng-container>
+          <!-- billable Column -->
+          <ng-container matColumnDef="billable" sticky>
+            <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm1">
+              Billable
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="tblcolwidth1-sm1">
+              <mat-checkbox (click)="$event.stopPropagation()" [(ngModel)]="element.uiBill"
+                [disabled]="!element.configurationFlag">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>
 
-      <!-- internalAccountable Column -->
-      <ng-container matColumnDef="internalAccountable" sticky>
-        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm1">
-          Internal Accountable
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element" class="tblcolwidth1-sm1">
-          <mat-checkbox
-            (click)="$event.stopPropagation()"
-            [(ngModel)]="element.uiInternal"
-            [disabled]="!element.configurationFlag"
-          >
-          </mat-checkbox>
-        </mat-cell>
-      </ng-container>
+          <!-- internalAccountable Column -->
+          <ng-container matColumnDef="internalAccountable" sticky>
+            <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm1">
+              Internal Accountable
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="tblcolwidth1-sm1">
+              <mat-checkbox (click)="$event.stopPropagation()" [(ngModel)]="element.uiInternal"
+                [disabled]="!element.configurationFlag">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>
 
-      <!-- externalAccountable Column -->
-      <ng-container matColumnDef="externalAccountable" sticky>
-        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm1">
-          External Accountable
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element" class="tblcolwidth1-sm1">
-          <mat-checkbox
-            (click)="$event.stopPropagation()"
-            [(ngModel)]="element.uiExternal"
-            [disabled]="!element.configurationFlag"
-          >
-          </mat-checkbox>
-        </mat-cell>
-      </ng-container>
+          <!-- externalAccountable Column -->
+          <ng-container matColumnDef="externalAccountable" sticky>
+            <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm1">
+              External Accountable
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="tblcolwidth1-sm1">
+              <mat-checkbox (click)="$event.stopPropagation()" [(ngModel)]="element.uiExternal"
+                [disabled]="!element.configurationFlag">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>
 
-      <!-- active Column -->
-      <ng-container matColumnDef="active" sticky>
-        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm1">
-          Active
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element" class="tblcolwidth1-sm1">
-          <mat-checkbox
-            (click)="$event.stopPropagation()"
-            [(ngModel)]="element.uiActive"
-            [disabled]="!element.configurationFlag"
-          >
-          </mat-checkbox>
-        </mat-cell>
-      </ng-container>
+          <!-- active Column -->
+          <ng-container matColumnDef="active" sticky>
+            <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm1">
+              Active
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="tblcolwidth1-sm1">
+              <mat-checkbox (click)="$event.stopPropagation()" [(ngModel)]="element.uiActive"
+                [disabled]="!element.configurationFlag">
+              </mat-checkbox>
+            </mat-cell>
+          </ng-container>
 
-      <!-- configurationFlag Column -->
-      <ng-container matColumnDef="configurationFlag" sticky>
-        <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm1">
-          Actions
-        </mat-header-cell>
-        <mat-cell *matCellDef="let element" class="tblcolwidth1-sm1">
-          <button
-            mat-raised-button
-            class="mat-elevation-z1"
-            (click)="onAction(element)"
-            [style.display]="!element.configurationFlag ? 'block' : 'none'"
-          >
-            <mat-icon class="iconcolor">create</mat-icon>
-          </button>
-          <button
-            mat-raised-button
-            class="mat-elevation-z1"
-            (click)="onAction(element)"
-            [style.display]="element.configurationFlag ? 'block' : 'none'"
-          >
-            <mat-icon class="iconcolor">check</mat-icon>
-          </button>
-          <button
-            mat-raised-button
-            class="mat-elevation-z1 ml-1"
-            (click)="onclose(element)"
-            [style.display]="element.configurationFlag ? 'block' : 'none'"
-          >
-            <mat-icon color="warn">disabled_by_default</mat-icon>
-          </button>
-        </mat-cell>
-      </ng-container>
+          <!-- configurationFlag Column -->
+          <ng-container matColumnDef="configurationFlag" sticky>
+            <mat-header-cell *matHeaderCellDef class="th-light tblcolwidth1-sm1">
+              Actions
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element" class="tblcolwidth1-sm1">
+              <button mat-raised-button class="mat-elevation-z1" (click)="onAction(element)"
+                [style.display]="!element.configurationFlag ? 'block' : 'none'">
+                <mat-icon class="iconcolor">create</mat-icon>
+              </button>
+              <button mat-raised-button class="mat-elevation-z1" (click)="onAction(element)"
+                [style.display]="element.configurationFlag ? 'block' : 'none'">
+                <mat-icon class="iconcolor">check</mat-icon>
+              </button>
+              <button mat-raised-button class="mat-elevation-z1 ml-1" (click)="onclose(element)"
+                [style.display]="element.configurationFlag ? 'block' : 'none'">
+                <mat-icon color="warn">disabled_by_default</mat-icon>
+              </button>
+            </mat-cell>
+          </ng-container>
 
-      <mat-header-row
-        *matHeaderRowDef="displayedColumns; sticky: true"
-        class="th-light"
-      ></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-    </mat-table>
-    <mat-paginator
-      class="tblcolswidth"
-      [length]="100"
-      [pageSize]="7"
-      [pageSizeOptions]="[7, 10, 25, 50]"
-      showFirstLastButtons
-    >
-    </mat-paginator>
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="th-light"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+      </mat-card-content>
+      <mat-card-actions>
+        <mat-paginator class="" [length]="100" [pageSize]="7" [pageSizeOptions]="[7, 10, 25, 50]"
+          showFirstLastButtons>
+        </mat-paginator>
+
+      </mat-card-actions>
+    </mat-card>
+    <!-- <h5 class="margin-space">View Action Codes</h5> -->
+    <!-- Material Client Mapping Table -->
+
   </div>
-  <div style="margin-left: 20px" class="col-md-3">
-    <h5>Add Action Code</h5>
+  <div class="col-md">
+    <!-- <h5>Add Action Code</h5> -->
     <form [formGroup]="formGroup">
       <!-- Material Card using Form -->
-      <mat-card class="tblcolwidth-lg">
+      <mat-card class="">
         <mat-card-header>
-          <mat-card-subtitle
-            >New Action codes can be Added Here
-          </mat-card-subtitle>
+          <mat-card-title>Add Action Code
+          </mat-card-title>
         </mat-card-header>
         <mat-card-content>
           <p>
             <mat-form-field class="tblcolwidth-xmd" appearance="fill">
               <mat-label>Client Name</mat-label>
-              <input
-                matInput
-                #input
-                maxlength="25"
-                [value]="currClientName"
-                readonly
-                disabled
-              />
+              <input matInput #input maxlength="25" [value]="currClientName" readonly disabled />
               <mat-hint>selected client name ^</mat-hint>
             </mat-form-field>
           </p>
@@ -217,53 +174,35 @@
             </mat-form-field>
           </p>
           <p>
-            <mat-form-field
-              class="tblcolwidth-xmd"
-              hintLabel="Max 25 characters"
-              appearance="fill"
-            >
+            <mat-form-field class="tblcolwidth-xmd" hintLabel="Max 25 characters" appearance="fill">
               <mat-label>Action Code</mat-label>
-              <input
-                matInput
-                #input
-                maxlength="25"
-                [formControl]="aActionControl"
-                required
-              />
+              <input matInput #input maxlength="25" [formControl]="aActionControl" required />
               <mat-hint align="end">{{ input.value?.length || 0 }}/25</mat-hint>
             </mat-form-field>
           </p>
           <p>
-            <label style="width: 200px"
-              >Billable : &nbsp;&nbsp;&nbsp;&nbsp;</label
-            >
+            <label style="width: 200px">Billable : &nbsp;&nbsp;&nbsp;&nbsp;</label>
             <mat-radio-group [formControl]="aBillableControl" required>
               <mat-radio-button value="Y">Yes</mat-radio-button>&nbsp;&nbsp;
               <mat-radio-button value="N">No</mat-radio-button>
             </mat-radio-group>
           </p>
           <p>
-            <label style="width: 200px"
-              >Internal Accountable : &nbsp;&nbsp;&nbsp;&nbsp;</label
-            >
+            <label style="width: 200px">Internal Accountable : &nbsp;&nbsp;&nbsp;&nbsp;</label>
             <mat-radio-group [formControl]="aInternalControl" required>
               <mat-radio-button value="Y">Yes</mat-radio-button>&nbsp;&nbsp;
               <mat-radio-button value="N">No</mat-radio-button>
             </mat-radio-group>
           </p>
           <p>
-            <label style="width: 200px"
-              >External Accountable : &nbsp;&nbsp;&nbsp;&nbsp;</label
-            >
+            <label style="width: 200px">External Accountable : &nbsp;&nbsp;&nbsp;&nbsp;</label>
             <mat-radio-group [formControl]="aExternalControl" required>
               <mat-radio-button value="Y">Yes</mat-radio-button>&nbsp;&nbsp;
               <mat-radio-button value="N">No</mat-radio-button>
             </mat-radio-group>
           </p>
           <p>
-            <label style="width: 200px"
-              >Active : &nbsp;&nbsp;&nbsp;&nbsp;</label
-            >
+            <label style="width: 200px">Active : &nbsp;&nbsp;&nbsp;&nbsp;</label>
             <mat-radio-group [formControl]="aActiveControl" required>
               <mat-radio-button value="Y">Yes</mat-radio-button>&nbsp;&nbsp;
               <mat-radio-button value="N">No</mat-radio-button>
@@ -271,19 +210,9 @@
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button
-            mat-raised-button
-            [disabled]="loading"
-            class="mat-elevation-z2"
-            type="submit"
-            class="buttoncolour"
-            (click)="onAdd($event)"
-          >
-            <mat-icon>add_circle</mat-icon
-            ><span
-              *ngIf="loading"
-              class="spinner-border spinner-border-sm mr-1"
-            ></span>
+          <button mat-raised-button [disabled]="loading" class="mat-elevation-z2" type="submit" class="buttoncolour"
+            (click)="onAdd($event)">
+            <mat-icon>add_circle</mat-icon><span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Add
           </button>
         </mat-card-actions>
