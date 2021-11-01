@@ -106,9 +106,9 @@ p {
   align-items: center;
   background-color: #0736e1;
   color: white;
-  position: fixed;
-   left: 0;
-   bottom: 0;
+  //position: fixed;
+   //left: 0;
+   //bottom: 0;
    width: 100%;
   //margin-top: 100px;
 }
@@ -267,7 +267,7 @@ a:hover {
 footer {
   display: flex;
   align-items: center;
-  line-height: 18px;
+  /*line-height: 18px;*/
   padding:5px 0px;
 
 }
