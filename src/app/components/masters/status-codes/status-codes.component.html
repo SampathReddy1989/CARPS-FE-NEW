@@ -1,8 +1,11 @@
 <div class="row font-weight-normal w-100" style="margin-top: 125px">
  
 
-  <div class="col-md">
-    <h5>View Status Codes</h5>
+  <div class="col-md-9 w-100">
+    <mat-card class="" style="margin-left:10px">
+      <mat-card-header>
+        <mat-card-title>View status code</mat-card-title>
+      </mat-card-header>
 
     
     <!-- Material Client Mapping Table -->
@@ -126,22 +129,23 @@
       ></mat-row>
     </mat-table>
     <mat-paginator
-      class="tblcolswidth"
+      class=""
       [length]="100"
       [pageSize]="7"
       [pageSizeOptions]="[7, 10, 25, 50]"
       showFirstLastButtons
     >
     </mat-paginator>
+    </mat-card>
   </div>
-  <div style="margin-left: 20px">
-    <h5>Add Status Code</h5>
+  <div class="col-md-3">
+    <!--<h5>Add Status Code</h5>-->
     <form [formGroup]="formGroup" (ngSubmit)="onAdd()">
       <!-- Material Card using Form -->
       <mat-card class="tblcolwidth-lg">
         <mat-card-header>
           <mat-card-subtitle
-            >New Status codes can be Added Here
+            >Add Status Code
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>

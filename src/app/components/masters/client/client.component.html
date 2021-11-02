@@ -1,6 +1,10 @@
 <div class="row font-weight-normal w-100" style="margin-top: 125px">
-  <div class="col-md">
-    <h5>View Clients</h5>
+  <div class="col-md-9 w-100">
+    <mat-card class="" style="margin-left: 10px">
+      <mat-card-header>
+        <mat-card-title>View Clients</mat-card-title>
+      </mat-card-header>
+   
     
     <!-- Material Client Mapping Table -->
     <table class="table-striped">
@@ -150,7 +154,7 @@
         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
       </mat-table>
       <mat-paginator
-      class="tblcolswidth"
+      class=""
       [length]="100"
       [pageSize]="7"
       [pageSizeOptions]="[7, 10, 25, 50]"
@@ -158,15 +162,16 @@
     >
     </mat-paginator>
     </table>
+    </mat-card>
   </div>
-  <div style="margin-left: 20px">
-    <h5>Add Client</h5>
+  <div class="col-md-3">
+   <!--<h5>Add Client</h5>-->
     <form [formGroup]="formGroup" (ngSubmit)="onAdd()">
       <!-- Material Card using Form -->
       <mat-card class="tblcolwidth-lg">
         <mat-card-header>
           <mat-card-subtitle
-            >New Client Details can be Added Here
+            >Add Client
           </mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
